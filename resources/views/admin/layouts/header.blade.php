@@ -1,9 +1,9 @@
-<nav class="app-header navbar navbar-expand bg-body"> <!--begin::Container-->
-    <div class="container-fluid"> <!--begin::Start Navbar Links-->
+<nav class="app-header navbar navbar-expand bg-body">
+    <div class="container-fluid">
         <ul class="navbar-nav">
             <li class="nav-item"> <a class="nav-link" data-lte-toggle="sidebar" href="#" role="button"> <i class="bi bi-list"></i> </a> </li>
-        </ul> <!--end::Start Navbar Links--> <!--begin::End Navbar Links-->
-        <ul class="navbar-nav ms-auto"> <!--begin::Navbar Search-->
+        </ul>
+        <ul class="navbar-nav ms-auto">
             <li class="nav-item dropdown"> <a class="nav-link" data-bs-toggle="dropdown" href="#"> <i class="bi bi-chat-text"></i> <span class="navbar-badge badge text-bg-danger">3</span> </a>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end"> <a href="#" class="dropdown-item"> <!--begin::Message-->
                         <div class="d-flex">
@@ -17,9 +17,9 @@
                                 <p class="fs-7 text-secondary"> <i class="bi bi-clock-fill me-1"></i> 4 Hours Ago
                                 </p>
                             </div>
-                        </div> <!--end::Message-->
+                        </div>
                     </a>
-                    <div class="dropdown-divider"></div> <a href="#" class="dropdown-item"> <!--begin::Message-->
+                    <div class="dropdown-divider"></div> <a href="#" class="dropdown-item">
                         <div class="d-flex">
                             <div class="flex-shrink-0"> <img src="{{ url('public/assets/dist/assets/img/user1-128x128.jpg') }}" alt="User Avatar" class="img-size-50 rounded-circle me-3"> </div>
                             <div class="flex-grow-1">
@@ -31,9 +31,9 @@
                                 <p class="fs-7 text-secondary"> <i class="bi bi-clock-fill me-1"></i> 4 Hours Ago
                                 </p>
                             </div>
-                        </div> <!--end::Message-->
+                        </div>
                     </a>
-                    <div class="dropdown-divider"></div> <a href="#" class="dropdown-item"> <!--begin::Message-->
+                    <div class="dropdown-divider"></div> <a href="#" class="dropdown-item">
                         <div class="d-flex">
                             <div class="flex-shrink-0"> <img src=".{{ url('public/assets/dist/assets/img/user1-128x128.jpg') }}" alt="User Avatar" class="img-size-50 rounded-circle me-3"> </div>
                             <div class="flex-grow-1">
@@ -45,11 +45,11 @@
                                 <p class="fs-7 text-secondary"> <i class="bi bi-clock-fill me-1"></i> 4 Hours Ago
                                 </p>
                             </div>
-                        </div> <!--end::Message-->
+                        </div>
                     </a>
                     <div class="dropdown-divider"></div> <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
                 </div>
-            </li> <!--end::Messages Dropdown Menu--> <!--begin::Notifications Dropdown Menu-->
+            </li>
             <li class="nav-item dropdown"> <a class="nav-link" data-bs-toggle="dropdown" href="#"> <i class="bi bi-bell-fill"></i> <span class="navbar-badge badge text-bg-warning">15</span> </a>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end"> <span class="dropdown-item dropdown-header">15 Notifications</span>
                     <div class="dropdown-divider"></div> <a href="#" class="dropdown-item"> <i class="bi bi-envelope me-2"></i> 4 new messages
@@ -154,7 +154,15 @@
                             </a> </li>
                     </ul>
                 </li>
-            </ul> <!--end::Sidebar Menu-->
+
+                <li class="nav-item"> <a href="{{ url('admin/logout') }}" class="nav-link">
+                    <i class="nav-icon bi bi-person-fill"></i>
+                        <p>
+                            Logout
+                        </p>
+                    </a>
+                </li>
+            </ul>
         </nav>
-    </div> <!--end::Sidebar Wrapper-->
-</aside> <!--end::Sidebar--> <!--begin::App Main-->
+    </div>
+</aside>
