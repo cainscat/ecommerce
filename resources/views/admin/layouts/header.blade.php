@@ -44,7 +44,17 @@
             <span class="brand-text fw-light" style="margin-left: 0px;">Ecommerce</span>
         </div>
     </div>
+    <div class="sidebar-brand">
+        <div class="user-panel mt-3 pb-3 d-flex">
+            <div class="image">
+                <img src="{{ url('public/assets/dist/assets/img/user2-160x160.jpg') }}" class="user-image rounded-circle shadow" style="max-width: 40px;" alt="User Image">
+                <span class="brand-text fw-light">{{ Auth::user()->name }}</span>
+            </div>
+        </div>
+    </div>
     <div class="sidebar-wrapper">
+
+
         <nav class="mt-2"> <!--begin::Sidebar Menu-->
             <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
@@ -54,27 +64,31 @@
                     </a>
                 </li>
 
-                <li class="nav-item"> <a href="{{ url('admin/admin/list') }}" class="nav-link @if(Request::segment(2) == 'admin') active @endif">
-                    <i class="nav-icon bi bi-person-fill"></i>
-                        <p>
-                            Admin
-                        </p>
+                <li class="nav-item">
+                    <a href="{{ url('admin/admin/list') }}" class="nav-link @if(Request::segment(2) == 'admin') active @endif">
+                        <i class="nav-icon bi bi-person-fill"></i>
+                        <p>Admin</p>
                     </a>
                 </li>
 
-                <li class="nav-item"> <a href="{{ url('admin/product/list') }}" class="nav-link @if(Request::segment(2) == 'product') active @endif">
-                    <i class="nav-icon bi bi-person-fill"></i>
-                        <p>
-                            Product
-                        </p>
+                <li class="nav-item">
+                    <a href="{{ url('admin/category/list') }}" class="nav-link @if(Request::segment(2) == 'category') active @endif">
+                        <i class="nav-icon bi bi-list-columns"></i>
+                        <p>Category</p>
                     </a>
                 </li>
 
-                <li class="nav-item"> <a href="{{ url('admin/logout') }}" class="nav-link">
-                    <i class="nav-icon bi bi-person-fill"></i>
-                        <p>
-                            Logout
-                        </p>
+                <li class="nav-item">
+                    <a href="{{ url('admin/product/list') }}" class="nav-link @if(Request::segment(2) == 'product') active @endif">
+                        <i class="nav-icon bi bi-card-list"></i>
+                        <p>Product</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ url('admin/logout') }}" class="nav-link">
+                        <i class="nav-icon bi bi-box-arrow-right"></i>
+                        <p>Logout</p>
                     </a>
                 </li>
 
