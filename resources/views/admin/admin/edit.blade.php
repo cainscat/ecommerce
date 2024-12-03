@@ -22,12 +22,13 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label>Name</label>
-                                    <input type="text" class="form-control" value="{{ $getRecord->name }}" name="name" required placeholder="Enter Name">
+                                    <input type="text" class="form-control" value="{{ old('name', $getRecord->name) }}" name="name" required placeholder="Enter Name">
                                 </div>
 
                                 <div class="form-group">
                                     <label>Email</label>
-                                    <input type="email" class="form-control" value="{{ $getRecord->email }}" name="email" required placeholder="Enter Email">
+                                    <input type="email" class="form-control" value="{{ old('email',$getRecord->email) }}" name="email" required placeholder="Enter Email">
+                                    <div style="color: red">{{ $errors->first('email') }}</div>
                                 </div>
 
                                 <div class="form-group">
@@ -39,8 +40,8 @@
                                 <div class="form-group">
                                     <label>Status</label>
                                     <select class="form-control" name="status" required>
-                                        <option value="{{ ($getRecord->status == 0) ? 'selected' : '' }}" value="0">Active</option>
-                                        <option value="{{ ($getRecord->status == 1) ? 'selected' : '' }}" value="1">InActive</option>
+                                        <option {{ ($getRecord->status == 0) ? 'selected' : '' }} value="0">Active</option>
+                                        <option {{ ($getRecord->status == 1) ? 'selected' : '' }} value="1">InActive</option>
                                     </select>
                                 </div>
                             </div>

@@ -22,21 +22,22 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label>Name</label>
-                                    <input type="text" class="form-control" name="name" placeholder="Enter Name">
+                                    <input type="text" class="form-control" required value="{{ old('name') }}" name="name" placeholder="Enter Name">
                                 </div>
                                 <div class="form-group">
                                     <label>Email</label>
-                                    <input type="email" class="form-control" name="email" placeholder="Enter Email">
+                                    <input type="email" class="form-control" required value="{{ old('email') }}" name="email" placeholder="Enter Email">
+                                    <div style="color: red">{{ $errors->first('email') }}</div>
                                 </div>
                                 <div class="form-group">
                                     <label>Password</label>
-                                    <input type="password" class="form-control" name="password" placeholder="Enter Password">
+                                    <input type="password" class="form-control" required name="password" placeholder="Enter Password">
                                 </div>
                                 <div class="form-group">
                                     <label>Status</label>
                                     <select class="form-control" name="status">
-                                        <option value="0">Active</option>
-                                        <option value="1">InActive</option>
+                                        <option {{ (old('status') == 0) ? 'selected' : '' }} value="0">Active</option>
+                                        <option {{ (old('status') == 0) ? 'selected' : '' }} value="1">InActive</option>
                                     </select>
                                 </div>
                             </div>
