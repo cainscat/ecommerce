@@ -10,6 +10,11 @@ class SubCategoryModel extends Model
     use HasFactory;
     protected $table = 'sub_category';
 
+    static public function getSingle($id)
+    {
+        returnself::find($id);
+    }
+
     static public function getRecord()
     {
         return self::select('sub_category.*', 'users.name as created_by_name', 'category.name as category_name')
@@ -19,5 +24,7 @@ class SubCategoryModel extends Model
                 ->orderBy('sub_category.id', 'desc')
                 ->paginate(20);
     }
+
+
 
 }
