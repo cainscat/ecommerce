@@ -45,8 +45,8 @@
                                             <td>{{ $value->email }}</td>
                                             <td>{{ ($value->status == 0) ? 'Active' : 'InActive' }}</td>
                                             <td>
-                                                <a href="{{ url('admin/admin/edit/'.$value->id) }}" class="btn btn-primary">Edit</a>
-                                                <a href="{{ url('admin/admin/delete/'.$value->id) }}" class="btn btn-danger">Delete</a>
+                                                <a href="{{ url('admin/admin/edit/'.$value->id) }}" class="btn btn-primary"><i class="bi bi-pencil-square"></i></a>
+                                                <a href="{{ url('admin/admin/delete/'.$value->id) }}" class="btn btn-danger"><i class="bi bi-trash3-fill"></i></a>
                                             </td>
                                         </tr>
                                     @endforeach

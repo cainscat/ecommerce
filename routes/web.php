@@ -6,6 +6,8 @@ use App\Http\Middleware\AdminMiddleware;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\SubCategoryController;
+
 
 Route::get('admin', [AuthController::class, 'login_admin']);
 Route::post('admin', [AuthController::class, 'auth_login_admin']);
@@ -29,6 +31,8 @@ Route::middleware(AdminMiddleware::class)->group(function () {
     Route::get('admin/category/edit/{id}', [CategoryController::class, 'edit']);
     Route::post('admin/category/edit/{id}', [CategoryController::class, 'update']);
     Route::get('admin/category/delete/{id}', [CategoryController::class, 'delete']);
+
+    Route::get('admin/sub_category/list', [SubCategoryController::class, 'list']);
 
 
 });

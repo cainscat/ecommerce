@@ -7,7 +7,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-6">
-                    <h3 class="mb-0">Category List</h3>
+                    <h3 class="mb-0">Sub Category List</h3>
                 </div>
                 <div class="col-sm-6" style="text-align: right;">
                     <a href="{{ url('admin/category/add') }}" class="btn btn-primary">Add New Category</a>
@@ -24,13 +24,14 @@
 
                     <div class="card mb-4">
                         <div class="card-header">
-                            <h3 class="card-title">Category List</h3>
+                            <h3 class="card-title">Sub Category List</h3>
                         </div>
                         <div class="card-body p-0">
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
                                         <th>#</th>
+                                        <th>Sub Category Name</th>
                                         <th>Category Name</th>
                                         <th>Slug</th>
                                         <th>Meta Title</th>
@@ -47,6 +48,7 @@
                                     <tr class="align-middle">
                                         <td>{{ $value->id }}</td>
                                         <td>{{ $value->name }}</td>
+                                        <td>{{ $value->category_name }}</td>
                                         <td>{{ $value->slug }}</td>
                                         <td>{{ $value->meta_title }}</td>
                                         <td>{{ $value->meta_description }}</td>
@@ -55,8 +57,8 @@
                                         <td>{{ ($value->status == 0) ? 'Active' : 'InActive' }}</td>
                                         <td>{{ date('d-m-Y', strtotime($value->created_at)) }}</td>
                                         <td>
-                                            <a href="{{ url('admin/category/edit/'.$value->id) }}" class="btn btn-primary"><i class="bi bi-pencil-square"></i></a>
-                                            <a href="{{ url('admin/category/delete/'.$value->id) }}" class="btn btn-danger"><i class="bi bi-trash3-fill"></i></a>
+                                            <a href="{{ url('admin/subcategory/edit/'.$value->id) }}" class="btn btn-primary"><i class="bi bi-pencil-square"></i></a>
+                                            <a href="{{ url('admin/subcategory/delete/'.$value->id) }}" class="btn btn-danger"><i class="bi bi-trash3-fill"></i></a>
                                         </td>
                                     </tr>
                                     @endforeach
