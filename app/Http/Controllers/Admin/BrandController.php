@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\BrandModel;
-// use App\Models\CategoryModel;
 use Auth;
 
 class BrandController extends Controller

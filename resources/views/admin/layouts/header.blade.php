@@ -93,6 +93,13 @@
                 </li>
 
                 <li class="nav-item">
+                    <a href="{{ url('admin/color/list') }}" class="nav-link @if(Request::segment(2) == 'color') active @endif">
+                        <i class="nav-icon bi bi-palette-fill"></i>
+                        <p>Color</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a href="{{ url('admin/product/list') }}" class="nav-link @if(Request::segment(2) == 'product') active @endif">
                         <i class="nav-icon bi bi-box-seam-fill"></i>
                         <p>Product</p>
