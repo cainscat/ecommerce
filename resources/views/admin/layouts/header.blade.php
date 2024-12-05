@@ -73,21 +73,28 @@
 
                 <li class="nav-item">
                     <a href="{{ url('admin/category/list') }}" class="nav-link @if(Request::segment(2) == 'category') active @endif">
-                        <i class="nav-icon bi bi-list-columns"></i>
+                        <i class="nav-icon bi bi-card-list"></i>
                         <p>Category</p>
                     </a>
                 </li>
 
                 <li class="nav-item">
                     <a href="{{ url('admin/sub_category/list') }}" class="nav-link @if(Request::segment(2) == 'sub_category') active @endif">
-                        <i class="nav-icon bi bi-list"></i>
+                        <i class="nav-icon bi bi-list-columns-reverse"></i>
                         <p>Sub Category</p>
                     </a>
                 </li>
 
                 <li class="nav-item">
+                    <a href="{{ url('admin/brand/list') }}" class="nav-link @if(Request::segment(2) == 'brand') active @endif">
+                        <i class="nav-icon bi bi-journal"></i>
+                        <p>Brand</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a href="{{ url('admin/product/list') }}" class="nav-link @if(Request::segment(2) == 'product') active @endif">
-                        <i class="nav-icon bi bi-card-list"></i>
+                        <i class="nav-icon bi bi-box-seam-fill"></i>
                         <p>Product</p>
                     </a>
                 </li>
