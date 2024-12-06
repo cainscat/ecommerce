@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\CategoryModel;
 use App\Models\ProductModel;
+use App\Models\BrandModel;
+use App\Models\ColorModel;
+
+
 use Str;
 use Auth;
 
@@ -54,11 +58,13 @@ class ProductController extends Controller
         $product = ProductModel::getSingle($product_id);
         if(!empty($product))
         {
+            $data['getCategory'] = CategoryModel::getRecordActive();
+            $data['getBrand'] = BrandModel::getRecordActive();
+            $data['getColor'] = ColorModel::getRecordActive();
             $data['product'] = $product;
             $data['header_title'] = "Edit Product";
             return view('admin.product.edit', $data);
         }
-
 
     }
 

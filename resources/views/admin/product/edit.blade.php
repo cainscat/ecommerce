@@ -39,8 +39,11 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Category <span style="color: red">*</span></label>
-                                            <select name="category_id" class="form-control">
+                                            <select name="category_id" id="ChangeCategory" class="form-control">
                                                 <option value="">Select</option>
+                                                @foreach ($getCategory as $category)
+                                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -48,7 +51,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Sub Category <span style="color: red">*</span></label>
-                                            <select name="sub_category_id" class="form-control">
+                                            <select name="sub_category_id" id="getSubCategory" class="form-control">
                                                 <option value="">Select</option>
                                             </select>
                                         </div>
@@ -59,6 +62,9 @@
                                             <label>Brand <span style="color: red">*</span></label>
                                             <select name="brand_id" class="form-control">
                                                 <option value="">Select</option>
+                                                @foreach ($getBrand as $brand)
+                                                    <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -68,15 +74,11 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label>Color <span style="color: red">*</span></label>
-                                            <div>
-                                                <label><input type="checkbox" name="color_id[]">Red</label>
-                                            </div>
-                                            <div>
-                                                <label><input type="checkbox" name="color_id[]">White</label>
-                                            </div>
-                                            <div>
-                                                <label><input type="checkbox" name="color_id[]">Green</label>
-                                            </div>
+                                            @foreach ($getColor as $color)
+                                                <div>
+                                                    <label><input type="checkbox" name="color_id[]" value="{{ $color->id }}">{{ $color->name }}</label>
+                                                </div>
+                                            @endforeach
                                         </div>
                                     </div>
                                 </div>
@@ -218,5 +220,27 @@
 @endsection
 
 @section('script')
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $('body').delegate('#ChangeCategory', 'change', function(e){
+            var id = $(this).val();
 
+            $.ajax({
+                type: "POST",
+                url: "{{ url('admin/get_sub_category') }}",
+                data: {
+                    "id" : id,
+                    "_token": "{{ csrf_token() }}"
+                },
+                dataType : "json",
+                success: function(data){
+                    $('#getSubCategory').html(data.html);
+                },
+                error: function(data){
+
+                }
+            });
+        });
+
+    </script>
 @endsection

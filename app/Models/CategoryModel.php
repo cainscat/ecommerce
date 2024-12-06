@@ -11,6 +11,11 @@ class CategoryModel extends Model
 
     protected $table = 'category';
 
+    static public function getSingle($id)
+    {
+        return self::find($id);
+    }
+
     static public function getRecord()
     {
         return self::select('category.*', 'users.name as created_by_name')
@@ -20,11 +25,14 @@ class CategoryModel extends Model
                 ->get();
     }
 
-    static public function getSingle($id)
+    static public function getRecordActive()
     {
-        return self::find($id);
+        return self::select('category.*')
+                ->join('users', 'users.id', '=', 'category.created_by')
+                ->where('category.is_delete', '=', 0)
+                ->where('category.status', '=', 0)
+                ->orderBy('category.name', 'asc')
+                ->get();
     }
-
-
 
 }
