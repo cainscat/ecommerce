@@ -8,8 +8,8 @@ use App\Models\CategoryModel;
 use App\Models\ProductModel;
 use App\Models\BrandModel;
 use App\Models\ColorModel;
-
-
+use App\Models\SubCategoryModel;
+use App\Models\ProductColorModel;
 use Str;
 use Auth;
 
@@ -62,10 +62,51 @@ class ProductController extends Controller
             $data['getBrand'] = BrandModel::getRecordActive();
             $data['getColor'] = ColorModel::getRecordActive();
             $data['product'] = $product;
+            $data['getSubCategory'] = SubCategoryModel::getRecordSubCategory($product->category_id);
             $data['header_title'] = "Edit Product";
             return view('admin.product.edit', $data);
         }
 
+    }
+    public function update($product_id, Request $request)
+    {
+        // dd($request->all());
+        $product = ProductModel::getSingle($product_id);
+        if(!empty($product))
+        {
+            $product->title = trim($request->title);
+            $product->sku = trim($request->sku);
+            $product->category_id = trim($request->category_id);
+            $product->sub_category_id = trim($request->sub_category_id);
+            $product->brand_id = trim($request->brand_id);
+            $product->price = trim($request->price);
+            $product->old_price = trim($request->old_price);
+            $product->short_description = trim($request->short_description);
+            $product->description = trim($request->description);
+            $product->additional_information = trim($request->additional_information);
+            $product->shipping_returns = trim($request->shipping_returns);
+            $product->status = trim($request->status);
+            $product->save();
+
+            ProductColorModel::DeleteRecord($product->id);
+
+            if(!empty($request->color_id))
+            {
+                foreach($request->color_id as $color_id)
+                {
+                    $color = new ProductColorModel;
+                    $color->color_id = $color_id;
+                    $color->product_id = $product_id;
+                    $color->save();
+                }
+            }
+
+            return redirect()->back()->with('success', "Product successfully updated");
+        }
+        else
+        {
+            abort(404);
+        }
     }
 
 }
