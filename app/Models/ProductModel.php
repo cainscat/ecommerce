@@ -16,6 +16,15 @@ class ProductModel extends Model
         return self::find($id);
     }
 
+    static public function getRecord()
+    {
+        return self::select('product.*','users.name as created_by_name')
+                ->join('users', 'users.id', '=', 'product.created_by')
+                ->orderBy('product.id', 'desc')
+                ->where('product.is_delete', '=', 0)
+                ->paginate(20);
+    }
+
     static public function checkSlug($slug)
     {
         return self::where('slug','=',$slug)->count();

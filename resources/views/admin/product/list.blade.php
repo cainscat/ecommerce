@@ -31,11 +31,7 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Category Name</th>
-                                        <th>Slug</th>
-                                        <th>Meta Title</th>
-                                        <th>Meta Description</th>
-                                        <th>Meta Keywords</th>
+                                        <th>Title</th>
                                         <th>Created By</th>
                                         <th>Status</th>
                                         <th>Created Date</th>
@@ -43,25 +39,26 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {{-- @foreach ($getRecord as $value)
+                                    @foreach ($getRecord as $value)
                                     <tr class="align-middle">
                                         <td>{{ $value->id }}</td>
-                                        <td>{{ $value->name }}</td>
-                                        <td>{{ $value->slug }}</td>
-                                        <td>{{ $value->meta_title }}</td>
-                                        <td>{{ $value->meta_description }}</td>
-                                        <td>{{ $value->meta_keywords }}</td>
+                                        <td>{{ $value->title }}</td>
                                         <td>{{ $value->created_by_name }}</td>
                                         <td>{{ ($value->status == 0) ? 'Active' : 'InActive' }}</td>
                                         <td>{{ date('d-m-Y', strtotime($value->created_at)) }}</td>
                                         <td>
-                                            <a href="{{ url('admin/category/edit/'.$value->id) }}" class="btn btn-primary"><i class="bi bi-pencil-square"></i></a>
-                                            <a href="{{ url('admin/category/delete/'.$value->id) }}" class="btn btn-danger"><i class="bi bi-trash3-fill"></i></a>
+                                            <a href="{{ url('admin/product/edit/'.$value->id) }}" class="btn btn-primary"><i class="bi bi-pencil-square"></i></a>
+                                            <a href="{{ url('admin/product/delete/'.$value->id) }}" class="btn btn-danger"><i class="bi bi-trash3-fill"></i></a>
                                         </td>
                                     </tr>
-                                    @endforeach --}}
+                                    @endforeach
                                 </tbody>
                             </table>
+
+                            <div style="padding: 10px; float: right;">
+                                {!! $getRecord->appends(Illuminate\Support\Facades\Request::except('page'))->links() !!}
+                            </div>
+
                         </div> <!-- /.card-body -->
                     </div> <!-- /.card -->
                 </div> <!-- /.col -->
