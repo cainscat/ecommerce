@@ -114,41 +114,19 @@
                                                             <th>Action</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody>
+                                                    <tbody id="AppendSize">
                                                         <tr>
                                                             <td>
-                                                                <input type="text" name="" class="form-control">
+                                                                <input type="text" name="" placeholder="Name" class="form-control">
                                                             </td>
                                                             <td>
-                                                                <input type="text" name="" class="form-control">
+                                                                <input type="text" name="" placeholder="Price" class="form-control">
                                                             </td>
-                                                            <td>
-                                                                <button type="button" class="btn btn-primary">Add</button>
-                                                                <button type="button" class="btn btn-danger">Delete</button>
+                                                            <td style="width: 100px;">
+                                                                <button type="button" class="btn btn-primary AddSize">Add</button>
                                                             </td>
                                                         </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <input type="text" name="" class="form-control">
-                                                            </td>
-                                                            <td>
-                                                                <input type="text" name="" class="form-control">
-                                                            </td>
-                                                            <td>
-                                                                <button type="button" class="btn btn-danger">Delete</button>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <input type="text" name="" class="form-control">
-                                                            </td>
-                                                            <td>
-                                                                <input type="text" name="" class="form-control">
-                                                            </td>
-                                                            <td>
-                                                                <button type="button" class="btn btn-danger">Delete</button>
-                                                            </td>
-                                                        </tr>
+
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -222,6 +200,28 @@
 @section('script')
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script type="text/javascript">
+        var i = 1000;
+        $('body').delegate('.AddSize', 'click', function(){
+            var html = '<tr id="DeleteSize'+i+'">\n\
+                            <td>\n\
+                                <input type="text" name="" placeholder="Name" class="form-control">\n\
+                            </td>\n\
+                            <td>\n\
+                                <input type="text" name="" placeholder="Price" class="form-control">\n\
+                            </td>\n\
+                            <td>\n\
+                                <button type="button" id="'+i+'" class="btn btn-danger DeleteSize">Delete</button>\n\
+                            </td>\n\
+                        </tr>';
+            i++;
+            $('#AppendSize').append(html);
+        });
+
+        $('body').delegate('.DeleteSize', 'click', function(){
+            var id = $(this).attr('id');
+            $('#DeleteSize'+id).remove();
+        });
+
         $('body').delegate('#ChangeCategory', 'change', function(e){
             var id = $(this).val();
 
