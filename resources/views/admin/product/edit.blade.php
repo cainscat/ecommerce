@@ -149,7 +149,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label>Description <span style="color: red">*</span></label>
-                                            <textarea name="description" class="form-control" placeholder="Description"></textarea>
+                                            <textarea name="description" id="summernote" class="form-control editor" placeholder="Description"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -158,7 +158,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label>Additional Information <span style="color: red">*</span></label>
-                                            <textarea name="additional_information" class="form-control" placeholder="Additional Information"></textarea>
+                                            <textarea name="additional_information"  class="form-control editor" placeholder="Additional Information"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -167,7 +167,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label>Shipping Returns <span style="color: red">*</span></label>
-                                            <textarea name="shipping_returns" class="form-control" placeholder="Shipping Returns"></textarea>
+                                            <textarea name="shipping_returns"  class="form-control editor" placeholder="Shipping Returns"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -199,7 +199,22 @@
 
 @section('script')
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.js"></script>
+
     <script type="text/javascript">
+        //Text editor
+        $(document).ready(function() {
+            $('.editor').summernote({
+                placeholder: 'Enter here...',
+                tabsize: 2,
+                height: 100
+            });
+        });
+
+        //Add,DeleteSize-begin
         var i = 1000;
         $('body').delegate('.AddSize', 'click', function(){
             var html = '<tr id="DeleteSize'+i+'">\n\
@@ -221,7 +236,9 @@
             var id = $(this).attr('id');
             $('#DeleteSize'+id).remove();
         });
+        //endAdd,deleteSize
 
+        //get subcategory when choose category
         $('body').delegate('#ChangeCategory', 'change', function(e){
             var id = $(this).val();
 
