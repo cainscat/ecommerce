@@ -11,6 +11,7 @@ use App\Models\ColorModel;
 use App\Models\SubCategoryModel;
 use App\Models\ProductColorModel;
 use App\Models\ProductSizeModel;
+use App\Models\ProductImageModel;
 use Str;
 use Auth;
 
@@ -113,6 +114,26 @@ class ProductController extends Controller
                         $saveSize->price = !empty($size['price']) ? $size['price'] : 0;
                         $saveSize->product_id = $product_id;
                         $saveSize->save();
+                    }
+                }
+            }
+
+            if(!empty($request->file('image')))
+            {
+                foreach($request->file('image') as $value)
+                {
+                    if($value->isValid())
+                    {
+                        $ext = $value->getClientOriginalExtension();
+                        $randomStr = $product->id.Str::random(20);
+                        $filename = strtolower($randomStr).'.'.$ext;
+                        $value->move('upload/product/', $filename);
+
+                        $imageupload = new ProductImageModel;
+                        $imageupload->image_name = $filename;
+                        $imageupload->image_extension = $ext;
+                        $imageupload->product_id = $product->id;
+                        $imageupload->save();
                     }
                 }
             }
