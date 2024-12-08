@@ -42,7 +42,7 @@ class ProductModel extends Model
 
     public function getImage()
     {
-        return $this->hasMany(ProductImageModel::class, "product_id");
+        return $this->hasMany(ProductImageModel::class, "product_id")->orderBy('order_by', 'asc');
     }
 
 

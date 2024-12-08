@@ -183,10 +183,10 @@
                                 </div>
 
                                 @if (!empty($product->getImage->count()))
-                                        <div class="row">
+                                        <div class="row" id="sortable">
                                             @foreach ($product->getImage as $image)
                                                 @if (!empty($image->getLogo()))
-                                                    <div class="col-md-1 mt-3" style="text-align: center;">
+                                                    <div class="col-md-1 mt-3 sortable_image" id="{{ $image->id }}" style="text-align: center;">
                                                         <img style="width: 100%; height:70%;" src="{{ $image->getLogo() }}">
                                                         <a onclick="return confirm('Are you sure want to delete?');" href="{{ url('admin/product/image_delete/'.$image->id) }}" style="margin-top: 5px;" class="btn btn-danger btn-sm">Delete</a>
                                                     </div>
@@ -259,13 +259,46 @@
 @endsection
 
 @section('script')
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+<script src="{{ url('public/assets/sortable/jquery-3.7.1.js') }}"></script>
+<script src="{{ url('public/assets/sortable/jquery-ui.js') }}"></script>
+
+    {{-- <script src="{{ url('public/assets/jquery/jquery-3.5.1.min.js') }}"></script> --}}
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.js"></script>
 
     <script type="text/javascript">
+
+        $(document).ready(function(){
+            $( "#sortable" ).sortable({
+                update : function(event, ui){
+                    var photo_id = new Array();
+                    $('.sortable_image').each(function(){
+                        var id = $(this).attr('id');
+                        photo_id.push(id);
+                    });
+
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ url('admin/product_image_sortable') }}",
+                        data: {
+                            "photo_id" : photo_id,
+                            "_token": "{{ csrf_token() }}"
+                        },
+                        dataType : "json",
+                        success: function(data){
+
+                        },
+                        error: function(data){
+
+                        }
+                    });
+                }
+            });
+        });
+
         //Text editor
         $(document).ready(function() {
             $('.editor').summernote({
