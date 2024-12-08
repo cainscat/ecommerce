@@ -138,12 +138,24 @@ class ProductController extends Controller
                 }
             }
 
-            return redirect()->back()->with('success', "Product successfully updated");
+            return redirect()->back()->with('success', "Product Successfully Updated");
         }
         else
         {
             abort(404);
         }
+    }
+
+    public function image_delete($id)
+    {
+        $image = ProductImageModel::getSingle($id);
+        if(!empty($image->getLogo()))
+        {
+            unlink('upload/product/'.$image->image_name);
+        }
+        $image->delete();
+
+        return redirect()->back()->with('success', "Product Image Successfully Deleted");
     }
 
 }
