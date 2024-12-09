@@ -1,8 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
 use App\Http\Middleware\AdminMiddleware;
+
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HomeController;
+
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
@@ -10,6 +13,8 @@ use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\ColorController;
+
+
 
 Route::get('admin', [AuthController::class, 'login_admin']);
 Route::post('admin', [AuthController::class, 'auth_login_admin']);
@@ -70,6 +75,6 @@ Route::middleware(AdminMiddleware::class)->group(function () {
 
 });
 
-Route::get('/', function (){
-    return view('welcome');
-});
+
+Route::get('/', [HomeController::class, 'home']);
+
