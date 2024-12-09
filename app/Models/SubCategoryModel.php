@@ -12,7 +12,7 @@ class SubCategoryModel extends Model
 
     static public function getSingle($id)
     {
-        returnself::find($id);
+        return self::find($id);
     }
 
     static public function getRecord()
