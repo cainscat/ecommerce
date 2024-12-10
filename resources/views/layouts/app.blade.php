@@ -5,11 +5,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>eCommerce</title>
-    <meta name="keywords" content="">
-    <meta name="description" content="">
-    <link rel="shortcut icon" href="{{ url('assets/images/icons/favicon.ico') }}">
 
+    <title>{{ !empty($meta_title) ? $meta_title : '' }}</title>
+
+    @if(!empty($meta_description))
+    <meta name="description" content="{{ $meta_description }}">
+    @endif
+
+    @if(!empty($meta_keywords))
+        <meta name="keywords" content="{{ $meta_keywords }}">
+    @endif
+
+    <link rel="shortcut icon" href="{{ url('assets/images/icons/favicon.ico') }}">
     <link rel="stylesheet" href="{{ url('assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ url('assets/css/plugins/owl-carousel/owl.carousel.css') }}">
     <link rel="stylesheet" href="{{ url('assets/css/plugins/magnific-popup/magnific-popup.css') }}">
