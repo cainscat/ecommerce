@@ -5,6 +5,7 @@ use App\Http\Middleware\AdminMiddleware;
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController as ProductFront;
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\AdminController;
@@ -77,4 +78,4 @@ Route::middleware(AdminMiddleware::class)->group(function () {
 
 
 Route::get('/', [HomeController::class, 'home']);
-
+Route::get('{slug?}', [ProductFront::class, 'getCategory']);
