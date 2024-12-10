@@ -67,14 +67,16 @@
                                                     $getCategoryHeader = App\Models\CategoryModel::getRecordMenu();
                                                 @endphp
                                                 @foreach ($getCategoryHeader as $value_h_c)
-                                                    <div class="col-md-4" style="margin-bottom: 20px;">
-                                                        <a href="{{ url($value_h_c->slug) }}" class="menu-title">{{ $value_h_c->name }}</a>
-                                                        <ul>
-                                                            @foreach ($value_h_c->getSubCategory as $value_h_sub)
-                                                                <li><a href="{{ url($value_h_c->slug.'/'.$value_h_sub->slug) }}">{{ $value_h_sub->name }}</a></li>
-                                                            @endforeach
-                                                        </ul>
-                                                    </div>
+                                                    @if(!empty($value_h_c->getSubCategory->count()))
+                                                        <div class="col-md-4" style="margin-bottom: 20px;">
+                                                            <a href="{{ url($value_h_c->slug) }}" class="menu-title">{{ $value_h_c->name }}</a>
+                                                            <ul>
+                                                                @foreach ($value_h_c->getSubCategory as $value_h_sub)
+                                                                    <li><a href="{{ url($value_h_c->slug.'/'.$value_h_sub->slug) }}">{{ $value_h_sub->name }}</a></li>
+                                                                @endforeach
+                                                            </ul>
+                                                        </div>
+                                                    @endif
                                                 @endforeach
                                             </div>
                                         </div>

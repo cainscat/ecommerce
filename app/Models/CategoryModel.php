@@ -46,8 +46,7 @@ class CategoryModel extends Model
 
     public function getSubCategory()
     {
-        return $this->hasMany(SubCategoryModel::class, "category_id")->where('sub_category.status', '=', 0)
-                                                                    ->where('sub_category.is_delete', '=', 0);
+        return $this->hasMany(SubCategoryModel::class, "category_id")->where('sub_category.status', '=', 0)->where('sub_category.is_delete', '=', 0);
     }
 
 
