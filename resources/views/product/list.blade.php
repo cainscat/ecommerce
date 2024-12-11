@@ -1,7 +1,13 @@
 @extends('layouts.app')
+@section('style')
+    <link rel="stylesheet" href="{{ url('assets/css/plugins/nouislider/nouislider.css') }}">
+    <style>
+            .active-color   {
+                border: 2px solid #000 !important;
+            }
+    </style>
+@endsection
 @section('content')
-
-
 <main class="main">
     <div class="page-header text-center" style="background-image: url('{{ url('') }}/assets/images/page-header-bg.jpg')">
         <div class="container">
@@ -43,8 +49,9 @@
                             <div class="toolbox-sort">
                                 <label for="sortby">Sort by:</label>
                                 <div class="select-custom">
-                                    <select name="sortby" id="sortby" class="form-control">
-                                        <option value="popularity" selected="selected">Most Popular</option>
+                                    <select name="sortby" id="sortby" class="form-control ChangeSortBy">
+                                        <option value="">Select</option>
+                                        <option value="popularity">Most Popular</option>
                                         <option value="rating">Most Rated</option>
                                         <option value="date">Date</option>
                                     </select>
@@ -99,93 +106,47 @@
                         </ul>
                     </nav>
 
-                </div><!-- End .col-lg-9 -->
+                </div>
                 <aside class="col-lg-3 order-lg-first">
+                    <form id="FilterForm" method="post" action="">
+                        <input type="text" name="sub_category_id" id="get_sub_category_id">
+                        <input type="text" name="brand_id" id="get_brand_id">
+                        <input type="text" name="color_id" id="get_color_id">
+                        <input type="text" name="sort_by_id" id="get_sort_by_id">
+                    </form>
                     <div class="sidebar sidebar-shop">
                         <div class="widget widget-clean">
                             <label>Filters:</label>
                             <a href="#" class="sidebar-filter-clear">Clean All</a>
-                        </div><!-- End .widget widget-clean -->
+                        </div>
 
                         <div class="widget widget-collapsible">
                             <h3 class="widget-title">
                                 <a data-toggle="collapse" href="#widget-1" role="button" aria-expanded="true" aria-controls="widget-1">
                                     Category
                                 </a>
-                            </h3><!-- End .widget-title -->
+                            </h3>
 
                             <div class="collapse show" id="widget-1">
                                 <div class="widget-body">
                                     <div class="filter-items filter-items-count">
+
+                                        @foreach ($getSubCategoryFilter as $f_category)
                                         <div class="filter-item">
                                             <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="cat-1">
-                                                <label class="custom-control-label" for="cat-1">Dresses</label>
-                                            </div><!-- End .custom-checkbox -->
-                                            <span class="item-count">3</span>
-                                        </div><!-- End .filter-item -->
+                                                <input type="checkbox" class="custom-control-input ChangeCategory" value=" {{ $f_category->id }}" id="cat-{{ $f_category->id }}">
+                                                <label class="custom-control-label" for="cat-{{ $f_category->id }}">{{ $f_category->name }}</label>
+                                            </div>
+                                            <span class="item-count">{{ $f_category->TotalProduct() }}</span>
+                                        </div>
+                                        @endforeach
 
-                                        <div class="filter-item">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="cat-2">
-                                                <label class="custom-control-label" for="cat-2">T-shirts</label>
-                                            </div><!-- End .custom-checkbox -->
-                                            <span class="item-count">0</span>
-                                        </div><!-- End .filter-item -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-                                        <div class="filter-item">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="cat-3">
-                                                <label class="custom-control-label" for="cat-3">Bags</label>
-                                            </div><!-- End .custom-checkbox -->
-                                            <span class="item-count">4</span>
-                                        </div><!-- End .filter-item -->
-
-                                        <div class="filter-item">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="cat-4">
-                                                <label class="custom-control-label" for="cat-4">Jackets</label>
-                                            </div><!-- End .custom-checkbox -->
-                                            <span class="item-count">2</span>
-                                        </div><!-- End .filter-item -->
-
-                                        <div class="filter-item">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="cat-5">
-                                                <label class="custom-control-label" for="cat-5">Shoes</label>
-                                            </div><!-- End .custom-checkbox -->
-                                            <span class="item-count">2</span>
-                                        </div><!-- End .filter-item -->
-
-                                        <div class="filter-item">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="cat-6">
-                                                <label class="custom-control-label" for="cat-6">Jumpers</label>
-                                            </div><!-- End .custom-checkbox -->
-                                            <span class="item-count">1</span>
-                                        </div><!-- End .filter-item -->
-
-                                        <div class="filter-item">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="cat-7">
-                                                <label class="custom-control-label" for="cat-7">Jeans</label>
-                                            </div><!-- End .custom-checkbox -->
-                                            <span class="item-count">1</span>
-                                        </div><!-- End .filter-item -->
-
-                                        <div class="filter-item">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="cat-8">
-                                                <label class="custom-control-label" for="cat-8">Sportwear</label>
-                                            </div><!-- End .custom-checkbox -->
-                                            <span class="item-count">0</span>
-                                        </div><!-- End .filter-item -->
-                                    </div><!-- End .filter-items -->
-                                </div><!-- End .widget-body -->
-                            </div><!-- End .collapse -->
-                        </div><!-- End .widget -->
-
-                        <div class="widget widget-collapsible">
+                        {{-- <div class="widget widget-collapsible">
                             <h3 class="widget-title">
                                 <a data-toggle="collapse" href="#widget-2" role="button" aria-expanded="true" aria-controls="widget-2">
                                     Size
@@ -239,7 +200,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
 
                         <div class="widget widget-collapsible">
                             <h3 class="widget-title">
@@ -251,14 +212,10 @@
                             <div class="collapse show" id="widget-3">
                                 <div class="widget-body">
                                     <div class="filter-colors">
-                                        <a href="#" style="background: #b87145;"><span class="sr-only">Color Name</span></a>
-                                        <a href="#" style="background: #f0c04a;"><span class="sr-only">Color Name</span></a>
-                                        <a href="#" style="background: #333333;"><span class="sr-only">Color Name</span></a>
-                                        <a href="#" class="selected" style="background: #cc3333;"><span class="sr-only">Color Name</span></a>
-                                        <a href="#" style="background: #3399cc;"><span class="sr-only">Color Name</span></a>
-                                        <a href="#" style="background: #669933;"><span class="sr-only">Color Name</span></a>
-                                        <a href="#" style="background: #f2719c;"><span class="sr-only">Color Name</span></a>
-                                        <a href="#" style="background: #ebebeb;"><span class="sr-only">Color Name</span></a>
+
+                                        @foreach ($getColor as $f_color)
+                                            <a href="javascript:;" id="{{ $f_color->id }}" class="ChangeColor" style="background: {{ $f_color->code }};"><span class="sr-only">{{ $f_color->name }}</span></a>
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
@@ -274,54 +231,15 @@
                             <div class="collapse show" id="widget-4">
                                 <div class="widget-body">
                                     <div class="filter-items">
-                                        <div class="filter-item">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="brand-1">
-                                                <label class="custom-control-label" for="brand-1">Next</label>
-                                            </div>
-                                        </div>
 
+                                        @foreach ($getBrand as $f_brand)
                                         <div class="filter-item">
                                             <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="brand-2">
-                                                <label class="custom-control-label" for="brand-2">River Island</label>
+                                                <input type="checkbox" class="custom-control-input ChangeBrand" value="{{ $f_brand->id }}" id="brand-{{ $f_brand->id }}">
+                                                <label class="custom-control-label" for="brand-{{ $f_brand->id }}">{{ $f_brand->name }}</label>
                                             </div>
                                         </div>
-
-                                        <div class="filter-item">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="brand-3">
-                                                <label class="custom-control-label" for="brand-3">Geox</label>
-                                            </div>
-                                        </div>
-
-                                        <div class="filter-item">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="brand-4">
-                                                <label class="custom-control-label" for="brand-4">New Balance</label>
-                                            </div>
-                                        </div>
-
-                                        <div class="filter-item">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="brand-5">
-                                                <label class="custom-control-label" for="brand-5">UGG</label>
-                                            </div>
-                                        </div>
-
-                                        <div class="filter-item">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="brand-6">
-                                                <label class="custom-control-label" for="brand-6">F&F</label>
-                                            </div>
-                                        </div>
-
-                                        <div class="filter-item">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="brand-7">
-                                                <label class="custom-control-label" for="brand-7">Nike</label>
-                                            </div>
-                                        </div>
+                                        @endforeach
 
                                     </div>
                                 </div>
@@ -358,3 +276,75 @@
 
 @endsection
 
+@section('script')
+    <script src="{{ url('assets/js/wNumb.js') }}"></script>
+    <script src="{{ url('assets/js/bootstrap-input-spinner.js') }}"></script>
+    <script src="{{ url('assets/js/nouislider.min.js') }}"></script>
+    <script src="{{ url('assets/js/nouislider.min.js') }}"></script>
+
+    <script>
+
+        $('.ChangeSortBy').change(function(){
+            var id = $(this).val();
+            $('#get_sort_by_id').val(id);
+        });
+
+        $('.ChangeCategory').change(function(){
+            var ids = '';
+            $('.ChangeCategory').each(function(){
+                var id = $(this).val();
+
+                if(this.checked)
+                {
+                    var id = $(this).val();
+                    ids += id+',';
+                }
+
+            });
+            $('#get_sub_category_id').val(ids);
+        });
+
+        $('.ChangeBrand').change(function(){
+            var ids = '';
+            $('.ChangeBrand').each(function(){
+                var id = $(this).val();
+
+                if(this.checked)
+                {
+                    var id = $(this).val();
+                    ids += id+',';
+                }
+
+            });
+            $('#get_brand_id').val(ids);
+        });
+
+        $('.ChangeColor').click(function(){
+            var id = $(this).attr('id');
+            var status = $(this).attr('data-val');
+            if(status == 0)
+            {
+                $(this).attr('data-val', 1);
+                $(this).addClass('active-color');
+            }
+            else
+            {
+                $(this).attr('data-val', 0);
+                $(this).removeClass('active-color');
+            }
+
+            var ids = '';
+            $('.ChangeColor').each(function(){
+                var status = $(this).attr('data-val');
+                if(status == 1)
+                {
+                    var id = $(this).attr('id');
+                    ids += id+',';
+                }
+            });
+            $('#get_color_id').val(ids);
+
+        });
+
+    </script>
+@endsection
