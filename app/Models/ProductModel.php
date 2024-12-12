@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Request;
 
 class ProductModel extends Model
 {
@@ -42,6 +43,14 @@ class ProductModel extends Model
                 {
                     $return = $return->where('product.sub_category_id', '=', $subcategory_id);
                 }
+
+                if(!empty(Request::get('sub_category_id')))
+                {
+                    $sub_category_id = rtrim(Request::get('sub_category_id'), ',');
+                    $sub_category_id_array = explode(",", $sub_category_id);
+                    $return = $return->whereIn('product.sub_category_id', '=', $sub_category_id_array);
+                }
+
                 $return = $return->where('product.is_delete', '=', 0)
                                 ->where('product.status', '=', 0)
                                 ->orderBy('product.id', 'desc')

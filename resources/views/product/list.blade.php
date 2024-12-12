@@ -109,6 +109,7 @@
                 </div>
                 <aside class="col-lg-3 order-lg-first">
                     <form id="FilterForm" method="post" action="">
+                        {{ csrf_field() }}
                         <input type="text" name="sub_category_id" id="get_sub_category_id">
                         <input type="text" name="brand_id" id="get_brand_id">
                         <input type="text" name="color_id" id="get_color_id">
@@ -277,6 +278,9 @@
 @endsection
 
 @section('script')
+
+    <script src="{{ url('assets/ajax/jquery.min.js') }}"></script>
+
     <script src="{{ url('assets/js/wNumb.js') }}"></script>
     <script src="{{ url('assets/js/bootstrap-input-spinner.js') }}"></script>
     <script src="{{ url('assets/js/nouislider.min.js') }}"></script>
@@ -287,6 +291,7 @@
         $('.ChangeSortBy').change(function(){
             var id = $(this).val();
             $('#get_sort_by_id').val(id);
+            FilterForm();
         });
 
         $('.ChangeCategory').change(function(){
@@ -302,6 +307,7 @@
 
             });
             $('#get_sub_category_id').val(ids);
+            FilterForm();
         });
 
         $('.ChangeBrand').change(function(){
@@ -317,6 +323,7 @@
 
             });
             $('#get_brand_id').val(ids);
+            FilterForm();
         });
 
         $('.ChangeColor').click(function(){
@@ -343,8 +350,51 @@
                 }
             });
             $('#get_color_id').val(ids);
+            FilterForm();
 
         });
+
+        function FilterForm()
+        {
+
+            $.ajax({
+                type: "POST",
+                url: "{{ url('get_filter_product_ajax') }}",
+                data: $('#FilterForm').serialize(),
+                dataType: "json",
+                success: function(data){
+
+                },
+                error: function(data){
+
+                }
+            });
+        }
+
+
+        // if ( typeof noUiSlider === 'object' ) {
+		// var priceSlider  = document.getElementById('price-slider');
+
+		// // Check if #price-slider elem is exists if not return
+		// // to prevent error logs
+		// if (priceSlider == null) return;
+
+		// noUiSlider.create(priceSlider, {
+		// 	start: [ 0, 750 ],
+		// 	connect: true,
+		// 	step: 50,
+		// 	margin: 200,
+		// 	range: {
+		// 		'min': 0,
+		// 		'max': 1000
+		// 	},
+		// 	tooltips: true,
+		// 	format: wNumb({
+		//         decimals: 0,
+		//         prefix: '$'
+		//     })
+		// });
+        // }
 
     </script>
 @endsection

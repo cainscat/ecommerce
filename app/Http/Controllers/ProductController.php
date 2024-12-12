@@ -58,7 +58,11 @@ class ProductController extends Controller
 
     }
 
-
+    public function getFilterProductAjax(Request $request)
+    {
+        $getProduct = ProductModel::getProduct();
+        dd($getProduct);
+    }
 
 
 
