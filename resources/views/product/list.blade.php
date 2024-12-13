@@ -60,60 +60,22 @@
                         </div>
                     </div>
 
-                    <div class="products mb-3">
-                        <div class="row justify-content-center">
-                            @foreach ($getProduct as $value)
-                            @php
-                                $getProductImage = $value->getImageSingle($value->id);
-                            @endphp
-                            <div class="col-12 col-md-4 col-lg-4">
-                                <div class="product product-7 text-center">
-                                    <figure class="product-media">
-                                        <a href="{{ url($value->slug) }}">
-                                            @if (!empty($getProductImage) && !empty($getProductImage->getLogo()))
-                                                <img style="height:280px;width:100%;object-fit:fill;" src="{{ $getProductImage->getLogo() }}" alt="{{ $value->title }}" class="product-image">
-                                            @endif
-                                        </a>
-                                        <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
-                                        </div>
-                                    </figure>
-
-                                    <div class="product-body">
-                                        <div class="product-cat">
-                                            <a href="{{ url($value->category_slug.'/'.$value->sub_category_slug) }}">{{ $value->sub_category_name }}</a>
-                                        </div>
-                                        <h3 class="product-title"><a href="{{ url($value->slug) }}">{{ $value->title }}</a></h3>
-                                        <div class="product-price">
-                                            ${{ number_format($value->price, 2) }}
-                                        </div>
-                                        <div class="ratings-container">
-                                            <div class="ratings">
-                                                <div class="ratings-val" style="width: 20%;"></div>
-                                            </div>
-                                            <span class="ratings-text">( 2 Reviews )</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            @endforeach
-                        </div>
+                    <div id="getProductAjax">
+                        @include('product._list')
                     </div>
-
-                    <nav aria-label="Page navigation">
-                        <ul class="pagination justify-content-center">
-                            {!! $getProduct->appends(Illuminate\Support\Facades\Request::except('page'))->links() !!}
-                        </ul>
-                    </nav>
 
                 </div>
                 <aside class="col-lg-3 order-lg-first">
                     <form id="FilterForm" method="post" action="">
                         {{ csrf_field() }}
-                        <input type="text" name="sub_category_id" id="get_sub_category_id">
-                        <input type="text" name="brand_id" id="get_brand_id">
-                        <input type="text" name="color_id" id="get_color_id">
-                        <input type="text" name="sort_by_id" id="get_sort_by_id">
+                        <input type="hidden" name="old_sub_category_id" value="{{ !empty($getSubCategory) ? $getSubCategory->id : '' }}">
+                        <input type="hidden" name="old_category_id" value="{{ !empty($getCategory) ? $getCategory->id : '' }}">
+                        <input type="hidden" name="sub_category_id" id="get_sub_category_id">
+                        <input type="hidden" name="brand_id" id="get_brand_id">
+                        <input type="hidden" name="color_id" id="get_color_id">
+                        <input type="hidden" name="sort_by_id" id="get_sort_by_id">
+                        <input type="hidden" name="start_price" id="get_start_price">
+                        <input type="hidden" name="end_price" id="get_end_price">
                     </form>
                     <div class="sidebar sidebar-shop">
                         <div class="widget widget-clean">
@@ -278,13 +240,14 @@
 @endsection
 
 @section('script')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-    <script src="{{ url('assets/ajax/jquery.min.js') }}"></script>
+    {{-- <script src="{{ url('assets/ajax/jquery.min.js') }}"></script> --}}
 
     <script src="{{ url('assets/js/wNumb.js') }}"></script>
     <script src="{{ url('assets/js/bootstrap-input-spinner.js') }}"></script>
     <script src="{{ url('assets/js/nouislider.min.js') }}"></script>
-    <script src="{{ url('assets/js/nouislider.min.js') }}"></script>
+
 
     <script>
 
@@ -351,19 +314,22 @@
             });
             $('#get_color_id').val(ids);
             FilterForm();
-
         });
 
+        var xhr;
         function FilterForm()
         {
-
-            $.ajax({
+            if(xhr && xhr.readyState != 4)
+            {
+                xhr.abort();
+            }
+            xhr = $.ajax({
                 type: "POST",
                 url: "{{ url('get_filter_product_ajax') }}",
                 data: $('#FilterForm').serialize(),
                 dataType: "json",
                 success: function(data){
-
+                    $('#getProductAjax').html(data.success)
                 },
                 error: function(data){
 
@@ -371,30 +337,43 @@
             });
         }
 
+        var i = 0;
 
-        // if ( typeof noUiSlider === 'object' ) {
-		// var priceSlider  = document.getElementById('price-slider');
+        if ( typeof noUiSlider === 'object' ) {
+            var priceSlider  = document.getElementById('price-slider');
 
-		// // Check if #price-slider elem is exists if not return
-		// // to prevent error logs
-		// if (priceSlider == null) return;
+            noUiSlider.create(priceSlider, {
+                start: [ 0, 1000 ],
+                connect: true,
+                step: 1,
+                margin: 200,
+                range: {
+                    'min': 0,
+                    'max': 1000
+                },
+                tooltips: true,
+                format: wNumb({
+                    decimals: 0,
+                    prefix: '$'
+                })
+            });
 
-		// noUiSlider.create(priceSlider, {
-		// 	start: [ 0, 750 ],
-		// 	connect: true,
-		// 	step: 50,
-		// 	margin: 200,
-		// 	range: {
-		// 		'min': 0,
-		// 		'max': 1000
-		// 	},
-		// 	tooltips: true,
-		// 	format: wNumb({
-		//         decimals: 0,
-		//         prefix: '$'
-		//     })
-		// });
-        // }
+            priceSlider.noUiSlider.on('update', function( values, handle ){
+                var start_price = values[0];
+                var end_price = values[1];
+                $('#get_start_price').val(start_price);
+                $('#get_end_price').val(end_price);
+                $('#filter-price-range').text(values.join(' - '));
+                if( i == 0 || i == 1)
+                {
+                    i++;
+                }
+                else
+                {
+                    FilterForm();
+                }
+            });
+        }
 
     </script>
 @endsection
