@@ -41,7 +41,7 @@
                     <div class="toolbox">
                         <div class="toolbox-left">
                             <div class="toolbox-info">
-                                Showing <span>9 of 56</span> Products
+                                Showing <span>{{ $getProduct->perPage() }} of {{ $getProduct->total() }}</span> Products
                             </div>
                         </div>
 
@@ -329,7 +329,7 @@
                 data: $('#FilterForm').serialize(),
                 dataType: "json",
                 success: function(data){
-                    $('#getProductAjax').html(data.success)
+                    $('#getProductAjax').append(data.success)
                 },
                 error: function(data){
 

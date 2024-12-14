@@ -17,6 +17,14 @@ class ProductModel extends Model
         return self::find($id);
     }
 
+    static public function getSingleSlug($slug)
+    {
+        return self::where('slug', '=', $slug)
+                    ->where('product.is_delete', '=', 0)
+                    ->where('product.status', '=', 0)
+                    ->first();
+    }
+
     static public function getRecord()
     {
         return self::select('product.*','users.name as created_by_name')
