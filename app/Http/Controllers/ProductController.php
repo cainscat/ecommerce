@@ -12,6 +12,20 @@ use App\Models\BrandModel;
 
 class ProductController extends Controller
 {
+
+    public function getProductSearch(Request $request)
+    {
+        $data['meta_title'] = 'Search';
+        $data['meta_description'] = '';
+        $data['meta_keywords'] = '';
+
+        $data['getProduct'] = ProductModel::getProduct();
+        $data['getColor'] = ColorModel::getRecordActive();
+        $data['getBrand'] = BrandModel::getRecordActive();
+
+        return view('product.list', $data);
+    }
+
     public function getCategory($slug, $subslug = '')
     {
         $getProductSingle = ProductModel::getSingleSlug($slug);
@@ -81,7 +95,6 @@ class ProductController extends Controller
             ])->render(),
         ], 200);
     }
-
 
 
 }

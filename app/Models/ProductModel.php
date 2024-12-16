@@ -95,6 +95,11 @@ class ProductModel extends Model
                     $return = $return->where('product.price', '<=', $end_price);
                 }
 
+                if(!empty(Request::get('q')))
+                {
+                    $return = $return->where('product.title', 'like', '%'.Request::get('q').'%');
+                }
+
                 $return = $return->where('product.is_delete', '=', 0)
                                 ->where('product.status', '=', 0)
                                 ->groupBy('product.id')
