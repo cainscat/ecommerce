@@ -40,7 +40,7 @@
 
                                 @foreach ($getProduct->getImage as $image)
                                     <a class="product-gallery-item" href="#" data-image="{{ $image->getLogo() }}" data-zoom-image="{{ $image->getLogo() }}">
-                                        <img src="{{ $image->getLogo() }}" alt="product side">
+                                        <img src="{{ $image->getLogo() }}" alt="product side" style="height: 100%;">
                                     </a>
                                 @endforeach
 
