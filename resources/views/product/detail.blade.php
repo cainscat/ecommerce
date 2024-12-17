@@ -61,7 +61,7 @@
                             </div>
 
                             <div class="product-price">
-                                ${{ number_format($getProduct->price, 2) }}
+                                $<span id="getTotalPrice">{{ number_format($getProduct->price, 2) }}</span>
                             </div>
 
                             <div class="product-content">
@@ -86,10 +86,10 @@
                             <div class="details-filter-row details-row-size">
                                 <label for="size">Size:</label>
                                 <div class="select-custom" style="width: min-content;">
-                                    <select name="size" id="size" class="form-control">
-                                        <option value="">Select</option>
+                                    <select name="size" id="size" class="form-control getSizePrice">
+                                        <option data-price="0" value="">Select</option>
                                         @foreach ($getProduct->getSize as $size)
-                                            <option value="{{ $size->id }}">
+                                            <option data-price="{{ !empty($size->price) ? $size->price : '0' }}" value="{{ $size->id }}">
                                                 {{ $size->name }}
                                                 @if(!empty($size->price))
                                                     (${{ number_format($size->price, 2) }})
@@ -317,4 +317,15 @@
     <script src="{{ url('assets/js/jquery.elevateZoom.min.js') }}"></script>
     <script src="{{ url('assets/js/bootstrap-input-spinner.js') }}"></script>
     <script src="{{ url('assets/js/jquery.magnific-popup.min.js') }}"></script>
+
+    <script>
+        $('.getSizePrice').change(function() {
+            var prduct_price = '{{ $getProduct->price }}';
+            var price = $('option:selected', this).attr('data-price');
+            var total = parseFloat(prduct_price) + parseFloat(price);
+            $('#getTotalPrice').html(total.toFixed(2));
+
+        });
+    </script>
+
 @endsection
