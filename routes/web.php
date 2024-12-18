@@ -6,6 +6,7 @@ use App\Http\Middleware\AdminMiddleware;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController as ProductFront;
+use App\Http\Controllers\PaymentController;
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\AdminController;
@@ -79,6 +80,10 @@ Route::middleware(AdminMiddleware::class)->group(function () {
 
 Route::get('/', [HomeController::class, 'home']);
 
+Route::get('cart', [PaymentController::class, 'cart']);
+Route::post('product/add-to-cart', [PaymentController::class, 'add_to_cart']);
+
 Route::get('search', [ProductFront::class, 'getProductSearch']);
 Route::post('get_filter_product_ajax', [ProductFront::class, 'getFilterProductAjax']);
 Route::get('{category?}/{subcategory?}', [ProductFront::class, 'getCategory']);
+

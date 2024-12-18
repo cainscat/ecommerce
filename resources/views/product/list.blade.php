@@ -68,6 +68,7 @@
 
                 </div>
                 <aside class="col-lg-3 order-lg-first">
+                    <form id="form1" action=""></form>
                     <form id="FilterForm" method="post" action="">
                         {{ csrf_field() }}
                         <input type="hidden" name="q" value="{{ !empty(Request::get('q')) ? Request::get('q') : '' }}">
