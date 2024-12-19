@@ -83,15 +83,6 @@
                                 </table>
 
                                 <div class="cart-bottom">
-                                    <div class="cart-discount">
-                                            <div class="input-group">
-                                                <input type="text" class="form-control" placeholder="coupon code">
-                                                <div class="input-group-append">
-                                                    <button type="button" class="btn btn-outline-primary-2" type="submit"><i class="icon-long-arrow-right"></i></button>
-                                                </div>
-                                            </div>
-                                    </div>
-
                                     <button type="submit" class="btn btn-outline-dark-2"><span>UPDATE CART</span><i class="icon-refresh"></i></button>
                                 </div>
                             </form>
@@ -106,11 +97,11 @@
                                             <td>Subtotal:</td>
                                             <td>${{ number_format(Cart::getSubTotal(), 2) }}</td>
                                         </tr>
-                                        <tr class="summary-shipping">
+
+                                        {{-- <tr class="summary-shipping">
                                             <td>Shipping:</td>
                                             <td>&nbsp;</td>
                                         </tr>
-
                                         <tr class="summary-shipping-row">
                                             <td>
                                                 <div class="custom-control custom-radio">
@@ -120,7 +111,6 @@
                                             </td>
                                             <td>$0.00</td>
                                         </tr>
-
                                         <tr class="summary-shipping-row">
                                             <td>
                                                 <div class="custom-control custom-radio">
@@ -130,7 +120,6 @@
                                             </td>
                                             <td>$0.00</td>
                                         </tr>
-
                                         <tr class="summary-shipping-row">
                                             <td>
                                                 <div class="custom-control custom-radio">
@@ -139,7 +128,7 @@
                                                 </div>
                                             </td>
                                             <td>$0.00</td>
-                                        </tr>
+                                        </tr> --}}
 
                                         {{-- <tr class="summary-shipping-estimate">
                                             <td>Estimate for Your Country<br> <a href="dashboard.html">Change address</a></td>
@@ -153,7 +142,7 @@
                                     </tbody>
                                 </table>
 
-                                <a href="checkout.html" class="btn btn-outline-primary-2 btn-order btn-block">PROCEED TO CHECKOUT</a>
+                                <a href="{{ url('checkout') }}" class="btn btn-outline-primary-2 btn-order btn-block">PROCEED TO CHECKOUT</a>
                             </div>
 
                             <a href="{{ url('') }}" class="btn btn-outline-dark-2 btn-block mb-3"><span>CONTINUE SHOPPING</span><i class="icon-refresh"></i></a>

@@ -81,10 +81,11 @@ Route::middleware(AdminMiddleware::class)->group(function () {
 Route::get('/', [HomeController::class, 'home']);
 
 Route::get('cart', [PaymentController::class, 'cart']);
+Route::post('product/add-to-cart', [PaymentController::class, 'add_to_cart']);
 Route::post('update_cart', [PaymentController::class, 'update_cart']);
 Route::get('cart/delete/{id}', [PaymentController::class, 'cart_delete']);
+Route::get('checkout', [PaymentController::class, 'checkout']);
 
-Route::post('product/add-to-cart', [PaymentController::class, 'add_to_cart']);
 
 Route::get('search', [ProductFront::class, 'getProductSearch']);
 Route::post('get_filter_product_ajax', [ProductFront::class, 'getFilterProductAjax']);
