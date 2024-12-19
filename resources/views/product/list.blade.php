@@ -66,6 +66,10 @@
                         @include('product._list')
                     </div>
 
+                    <div style="text-align: center;">
+                        <a href="javascript:;" @if(empty($page)) style="display: none;" @endif data-page="{{ $page }}" class="btn btn-primary LoadMore">Load More</a>
+                    </div>
+
                 </div>
                 <aside class="col-lg-3 order-lg-first">
                     <form id="form1" action=""></form>
@@ -273,19 +277,63 @@
             {
                 xhr.abort();
             }
+
             xhr = $.ajax({
                 type: "POST",
                 url: "{{ url('get_filter_product_ajax') }}",
                 data: $('#FilterForm').serialize(),
                 dataType: "json",
                 success: function(data){
-                    $('#getProductAjax').append(data.success)
+                    $('#getProductAjax').html(data.success)
+                    $('.LoadMore').attr('data-page', data.page);
+
+                    if(data.page == 0)
+                    {
+                        $('.LoadMore').hide();
+                    }
+                    else
+                    {
+                        $('.LoadMore').show();
+                    }
                 },
                 error: function(data){
 
                 }
             });
         }
+
+        $('body').delegate('.LoadMore', 'click', function(){
+            var page = $(this).attr('data-page');
+            $('.LoadMore').html('Loading...');
+            if(xhr && xhr.readyState != 4)
+            {
+                xhr.abort();
+            }
+
+            xhr = $.ajax({
+                type: "POST",
+                url: "{{ url('get_filter_product_ajax') }}?page="+page,
+                data: $('#FilterForm').serialize(),
+                dataType: "json",
+                success: function(data){
+                    $('#getProductAjax').append(data.success)
+                    $('.LoadMore').attr('data-page', data.page);
+                    $('.LoadMore').html('Load More');
+
+                    if(data.page == 0)
+                    {
+                        $('.LoadMore').hide();
+                    }
+                    else
+                    {
+                        $('.LoadMore').show();
+                    }
+                },
+                error: function(data){
+
+                }
+            });
+        });
 
         var i = 0;
 
@@ -296,7 +344,7 @@
                 start: [ 0, 1000 ],
                 connect: true,
                 step: 1,
-                margin: 200,
+                margin: 1,
                 range: {
                     'min': 0,
                     'max': 1000
