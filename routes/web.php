@@ -81,6 +81,8 @@ Route::middleware(AdminMiddleware::class)->group(function () {
 Route::get('/', [HomeController::class, 'home']);
 
 Route::get('cart', [PaymentController::class, 'cart']);
+Route::get('cart/delete/{id}', [PaymentController::class, 'cart_delete']);
+
 Route::post('product/add-to-cart', [PaymentController::class, 'add_to_cart']);
 
 Route::get('search', [ProductFront::class, 'getProductSearch']);
