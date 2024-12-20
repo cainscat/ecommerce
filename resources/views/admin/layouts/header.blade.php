@@ -107,6 +107,13 @@
                 </li>
 
                 <li class="nav-item">
+                    <a href="{{ url('admin/discount_code/list') }}" class="nav-link @if(Request::segment(2) == 'discount_code') active @endif">
+                        <i class="nav-icon bi bi-ticket-perforated-fill"></i>
+                        <p>Discount Code</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a href="{{ url('admin/logout') }}" class="nav-link">
                         <i class="nav-icon bi bi-box-arrow-right"></i>
                         <p>Logout</p>
