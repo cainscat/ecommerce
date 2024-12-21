@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 use Hash;
 use Auth;
 
@@ -36,5 +37,28 @@ class AuthController extends Controller
         Auth::logout();
         return redirect('admin');
     }
+
+    public function auth_register(Request $request)
+    {
+        $checkEmail = User::checkEmail($request->email);
+        if(empty($checkEmail))
+        {
+            $save = new User;
+            $save->name = trim($request->name);
+            $save->email = trim($request->email);
+            $save->password = Hash::make($request->password);
+            $save->save();
+
+            $json['status'] = true;
+            $json['message'] = "Your Account Successfully Register";
+        }
+        else
+        {
+            $json['status'] = false;
+            $json['message'] = "This Email Already Register! Please Choose Another!";
+        }
+        echo json_encode($json);
+    }
+
 
 }
