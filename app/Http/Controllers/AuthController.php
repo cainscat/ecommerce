@@ -7,7 +7,9 @@ use App\Models\User;
 use Hash;
 use Auth;
 use Mail;
+use Str;
 use App\Mail\RegisterMail;
+use App\Mail\ForgotPasswordMail;
 
 class AuthController extends Controller
 {
@@ -102,6 +104,63 @@ class AuthController extends Controller
         $user->save();
 
         return redirect(url(''))->with('success', "Email Successfully Verified");
+    }
+
+    public function forgot_password(Request $request)
+    {
+        $data['meta_title'] = "Forgot Password";
+        return view('auth.forgot',$data);
+    }
+
+    public function auth_forgot_password(Request $request)
+    {
+        $user = User::where('email','=',$request->email)->first();
+
+        if(!empty($user))
+        {
+            $user->remember_token = Str::random(30);
+            $user->save();
+
+            Mail::to($user->email)->send(new ForgotPasswordMail($user));
+
+            return redirect()->back()->with('success', "Please check your email and reset your password");
+        }
+        else
+        {
+            return redirect()->back()->with('error', "Email not found in the system");
+        }
+    }
+
+    public function reset($token)
+    {
+        $user = User::where('remember_token','=',$token)->first();
+        if(!empty($user))
+        {
+            $data['user'] = $user;
+            $data['meta_title'] = "Reset Password";
+            return view('auth.reset', $data);
+        }
+        else
+        {
+            abort(404);
+        }
+    }
+
+    public function auth_reset($token, Request $request)
+    {
+        if($request->password == $request->cpassword)
+        {
+            $user = User::where('remember_token', '=', $token)->first();
+            $user->password = Hash::make($request->password);
+            $user->remember_token = Str::random(30);
+            $user->save();
+
+            return redirect(url(''))->with('success', "Password successfully reset");
+        }
+        else
+        {
+            return redirect()->back()->with('error', "Password and confirm password does not match");
+        }
     }
 
 }
