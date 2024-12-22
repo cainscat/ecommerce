@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Hash;
 use Auth;
+use Mail;
+use App\Mail\RegisterMail;
 
 class AuthController extends Controller
 {
@@ -49,8 +51,10 @@ class AuthController extends Controller
             $save->password = Hash::make($request->password);
             $save->save();
 
+            Mail::to($save->email)->send(new RegisterMail($save));
+
             $json['status'] = true;
-            $json['message'] = "Your Account Successfully Register";
+            $json['message'] = "Your Account Successfully Created. Please Verify Your Email Address!";
         }
         else
         {
@@ -60,5 +64,14 @@ class AuthController extends Controller
         echo json_encode($json);
     }
 
+    public function activate_email($id)
+    {
+        $id = base64_decode($id);
+        $user = User::getSingle($id);
+        $user->email_verified_at = date('Y-m-d H:i:s');
+        $user->save();
+
+        return redirect(url(''))->with('success', "Email Successfully Verified");
+    }
 
 }
