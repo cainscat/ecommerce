@@ -97,6 +97,7 @@ Route::get('/', [HomeController::class, 'home']);
 
 Route::post('auth_register', [AuthController::class, 'auth_register']);
 Route::get('activate/{id}', [AuthController::class, 'activate_email']);
+Route::post('auth_login', [AuthController::class, 'auth_login']);
 
 Route::get('cart', [PaymentController::class, 'cart']);
 Route::post('product/add-to-cart', [PaymentController::class, 'add_to_cart']);
