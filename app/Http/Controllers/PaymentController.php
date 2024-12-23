@@ -119,6 +119,34 @@ class PaymentController extends Controller
 
     public function place_order(Request $request)
     {
+        $getShipping = ShippingChargeModel::getSingle($request->shipping);
+        $payable_total = Cart::getSubTotal();
+        $discount_amount = 0;
+        $discount_code = '';
+
+        if(!empty($request->discount_code))
+        {
+            $getDiscount = DiscountCodeModel::CheckDiscount($request->discount_code);
+            if(!empty($getDiscount))
+            {
+                $discount_code = $request->discount_code;
+                if($getDiscount->type == 'Amount')
+                {
+                    $discount_amount = $getDiscount->percent_amount;
+                    $payable_total =  $payable_total - $getDiscount->percent_amount;
+                }
+                else
+                {
+                    $discount_amount = ($payable_total * $getDiscount->percent_amount) / 100;
+                    $payable_total =  $payable_total - $discount_amount;
+                }
+            }
+
+        }
+
+        $shipping_amount = !empty($getShipping->price) ? $getShipping->price : 0;
+        $total_amount =  $payable_total + $shipping_amount;
+
         $order = new OrderModel;
         $order->first_name = trim($request->first_name);
         $order->last_name = trim($request->last_name);
@@ -132,8 +160,11 @@ class PaymentController extends Controller
         $order->phone = trim($request->phone);
         $order->email = trim($request->email);
         $order->note = trim($request->note);
-        $order->discount_code = trim($request->discount_code);
+        $order->discount_amount = trim($discount_amount);
+        $order->discount_code = trim($discount_code);
         $order->shipping_id = trim($request->shipping);
+        $order->shipping_amount = trim($shipping_amount);
+        $order->total_amount = trim($total_amount);
         $order->payment_method = trim($request->payment_method);
         $order->save();
 
@@ -164,6 +195,8 @@ class PaymentController extends Controller
             $order_item->save();
 
         }
+
+        die;
 
     }
 
