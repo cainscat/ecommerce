@@ -24,7 +24,7 @@
             <div class="checkout">
                 <div class="container">
                     <form action=""></form>
-                    <form action="{{ url('checkout/place_order') }}" method="post">
+                    <form action="" id="SubmitForm" method="post">
                         {{ csrf_field() }}
                         <div class="row">
                             <div class="col-lg-9">
@@ -78,10 +78,17 @@
                                     <label>Email address *</label>
                                     <input type="email" name="email" class="form-control" required>
 
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="checkout-create-acc">
-                                        <label class="custom-control-label" for="checkout-create-acc">Create an account?</label>
-                                    </div>
+                                    @if(empty(Auth::check()))
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" name="is_create" class="custom-control-input createAccount" id="checkout-create-acc">
+                                            <label class="custom-control-label" for="checkout-create-acc">Create an account?</label>
+                                        </div>
+
+                                        <div id="showPassword" style="display:none;">
+                                            <label>Password *</label>
+                                            <input type="text" id="inputPassword" name="password" class="form-control">
+                                        </div>
+                                    @endif
 
                                     <label>Order notes (optional)</label>
                                     <textarea class="form-control" name="note" cols="30" rows="4" placeholder="Notes about your order, e.g. special notes for delivery"></textarea>
@@ -199,6 +206,40 @@
 
 @section('script')
 <script>
+
+    $('body').delegate('.createAccount', 'change', function(){
+        if(this.checked)
+        {
+            $('#showPassword').show();
+            $('#inputPassword').prop('required', true);
+        }
+        else
+        {
+            $('#showPassword').hide();
+            $('#inputPassword').prop('required', false);
+        }
+    });
+
+    $('body').delegate('#SubmitForm', 'submit', function(e){
+        e.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: "{{ url('checkout/place_order') }}",
+            data: new FormData(this),
+            processData:false,
+            contentType:false,
+            dataType: "json",
+            success: function(data){
+                if(data.status == false)
+                {
+                    alert(data.message);
+                }
+            },
+            error: function(data){
+
+            }
+        });
+    });
 
     $('body').delegate('.getShippingCharge', 'change', function(){
         var price = $(this).attr('data-price');
