@@ -267,12 +267,54 @@ class PaymentController extends Controller
                 }
                 else if($getOrder->payment_method == 'paypal')
                 {
+                    $query = array();
+                    $query['business'] = "vipulbusiness@gmail.com";
+                    $query['cmd'] = '_xclick';
+                    $query['item_name'] = "E-commerce";
+                    $query['no_shipping'] = '1';
+                    $query['item_number'] = $getOrder->id;
+                    $query['amount'] = $getOrder->total_amount;
+                    $query['currency_code'] = 'USD';
+                    $query['cancel_return'] = url('checkout');
+                    $query['return'] = url('paypal/success-payment');
 
+                    $query_string = http_build_query($query);
+
+                    header('Location: http://www.sandbox.paypal.com/cgi-bin/webscr?'. $query_string);
+
+                    // header('Location: http://www.paypal.com/cgi-bin/webscr?'. $query_string);
+
+                    exit();
                 }
                 else if($getOrder->payment_method == 'stripe')
                 {
 
                 }
+            }
+            else
+            {
+                abort(404);
+            }
+        }
+        else
+        {
+            abort(404);
+        }
+    }
+
+    public function paypal_success_payment(Request $request)
+    {
+        if(!empty($request->item_number) && !empty($request->st) && $request->st == 'Completed')
+        {
+            $getOrder = OrderModel::getSingle($request->item_number);
+            if(!empty($getOrder))
+            {
+                $getOrder->is_payment = 1;
+                $getOrder->transaction_id = $request->tx;
+                $getOrder->payment_data = json_encode($request->all());
+                $getOrder->save();
+                Cart::clear();
+                return redirect('cart')->with('success', "Order successfully placed");
             }
             else
             {
