@@ -10,6 +10,7 @@ use App\Http\Controllers\PaymentController;
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\ProductController;
@@ -17,7 +18,6 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Admin\DiscountCodeController;
 use App\Http\Controllers\Admin\ShippingChargeController;
-
 
 
 Route::get('admin', [AuthController::class, 'login_admin']);
@@ -35,6 +35,8 @@ Route::middleware(AdminMiddleware::class)->group(function () {
     Route::get('admin/admin/edit/{id}', [AdminController::class, 'edit']);
     Route::post('admin/admin/edit/{id}', [AdminController::class, 'update']);
     Route::get('admin/admin/delete/{id}', [AdminController::class, 'delete']);
+
+    Route::get('admin/orders/list', [OrderController::class, 'list']);
 
     Route::get('admin/category/list', [CategoryController::class, 'list']);
     Route::get('admin/category/add', [CategoryController::class, 'add']);

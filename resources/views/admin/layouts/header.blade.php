@@ -72,6 +72,13 @@
                 </li>
 
                 <li class="nav-item">
+                    <a href="{{ url('admin/orders/list') }}" class="nav-link @if(Request::segment(2) == 'orders') active @endif">
+                        <i class="nav-icon bi bi-cart-dash-fill"></i>
+                        <p>Orders</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a href="{{ url('admin/category/list') }}" class="nav-link @if(Request::segment(2) == 'category') active @endif">
                         <i class="nav-icon bi bi-card-list"></i>
                         <p>Category</p>
