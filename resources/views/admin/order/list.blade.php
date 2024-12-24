@@ -67,17 +67,20 @@
                                         <td style="text-transform: capitalize;">{{ $value->payment_method }}</td>
                                         <td></td>
                                         <td>{{ date('d-m-Y h:i A', strtotime($value->created_at)) }}</td>
-                                        <td></td>
+                                        <td>
+                                            <a href="{{ url('admin/orders/detail/'.$value->id) }}" class="btn btn-primary">Detail</a>
+                                        </td>
                                     </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                         </div> <!-- /.card-body -->
-                    </div> <!-- /.card -->
-                </div> <!-- /.col -->
-            </div> <!--end::Row-->
-        </div> <!--end::Container-->
-    </div> <!--end::App Content-->
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
 </main>
 @endsection
 

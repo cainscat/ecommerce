@@ -7,4 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class OrderItemModel extends Model
 {
     protected $table = 'orders_item';
+
+    public function getProduct()
+    {
+        return $this->belongsTo(ProductModel::class, 'product_id');
+    }
+
 }
