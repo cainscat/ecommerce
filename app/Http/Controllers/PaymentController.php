@@ -12,10 +12,12 @@ use App\Models\OrderItemModel;
 use App\Models\ColorModel;
 use App\Models\User;
 use Stripe\Stripe;
+use App\Mail\OrderInvoiceMail;
 use Auth;
 use Cart;
 use Hash;
 use Session;
+use Mail;
 
 class PaymentController extends Controller
 {
@@ -191,6 +193,7 @@ class PaymentController extends Controller
             {
                 $order->user_id = trim($user_id);
             }
+            $order->order_number = mt_rand(100000000,999999999);
             $order->first_name = trim($request->first_name);
             $order->last_name = trim($request->last_name);
             $order->company_name = trim($request->company_name);
@@ -270,8 +273,7 @@ class PaymentController extends Controller
                 else if($getOrder->payment_method == 'paypal')
                 {
                     $query = array();
-                    // $query['business'] = "vipulbusiness@gmail.com";
-                    $query['business'] = "vulam3102@gmail.com";
+                    $query['business'] = "sandboxpaypal@business.example.com";
                     $query['cmd'] = '_xclick';
                     $query['item_name'] = "E-commerce";
                     $query['no_shipping'] = '1';
@@ -344,6 +346,9 @@ class PaymentController extends Controller
                 $getOrder->transaction_id = $request->tx;
                 $getOrder->payment_data = json_encode($request->all());
                 $getOrder->save();
+
+                Mail::to($getOrder->email)->send(new OrderInvoiceMail($getOrder));
+
                 Cart::clear();
                 return redirect('cart')->with('success', "Order successfully placed");
             }
@@ -372,6 +377,7 @@ class PaymentController extends Controller
             $getOrder->transaction_id = $getdata->id;
             $getOrder->payment_data = json_encode($getdata);
             $getOrder->save();
+            Mail::to($getOrder->email)->send(new OrderInvoiceMail($getOrder));
             Cart::clear();
             return redirect('cart')->with('success', "Order successfully placed");
         }
