@@ -52,12 +52,25 @@
 <body>
     <div class="invoice-container">
         <div class="invoice-header">
-            <h2>Order Invoice</h2>
+            <h2>Order Status</h2>
+            <h3>Dear: {{ $order->first_name }}</h3>
         </div>
         <div class="invoice-details">
-            <p><strong>Order Number:</strong> {{ $order->order_number }}</p>
-            <p><strong>Date of Purchase:</strong> {{ date('d-m-Y', strtotime($order->created_at)) }}</p>
-            <p><strong>Dear:</strong> {{ $order->first_name }}</p>
+            <p>
+                @if ($order->status == 0)
+                    <strong>Pending</strong>
+                @elseif($order->status == 1)
+                    <strong>In Progress</strong>
+                @elseif($order->status == 2)
+                    <strong>Delivered</strong>
+                @elseif($order->status == 3)
+                    <strong>Completed</strong>
+                @elseif($order->status == 4)
+                    <strong>Cancelled</strong>
+                @endif
+            </p>
+            <p>Order Number: {{ $order->order_number }}</p>
+            <p>Date of Purchase: {{ date('d-m-Y', strtotime($order->created_at)) }}</p>
             <p>Thank you for your purchase!</p>
         </div>
         <table class="invoice-table">

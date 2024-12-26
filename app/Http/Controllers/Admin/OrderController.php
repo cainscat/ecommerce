@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\OrderModel;
+use App\Mail\OrderStatusMail;
+use Mail;
 use Auth;
 
 class OrderController extends Controller
@@ -21,6 +23,19 @@ class OrderController extends Controller
         $data['getRecord'] = OrderModel::getSingle($id);
         $data['header_title'] = "Order Detail";
         return view('admin.order.detail', $data);
+    }
+
+    public function order_status(Request $request)
+    {
+        $getOrder = OrderModel::getSingle($request->order_id);
+        $getOrder->status = $request->status;
+        $getOrder->save();
+
+        Mail::to($getOrder->email)->send(new OrderStatusMail($getOrder));
+
+        $json['message'] = "Status successfully updated";
+        echo json_encode($json);
+
     }
 
 }

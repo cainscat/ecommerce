@@ -38,6 +38,7 @@ Route::middleware(AdminMiddleware::class)->group(function () {
 
     Route::get('admin/orders/list', [OrderController::class, 'list']);
     Route::get('admin/orders/detail/{id}', [OrderController::class, 'order_detail']);
+    Route::get('admin/order_status', [OrderController::class, 'order_status']);
 
     Route::get('admin/category/list', [CategoryController::class, 'list']);
     Route::get('admin/category/add', [CategoryController::class, 'add']);
