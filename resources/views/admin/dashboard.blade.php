@@ -84,26 +84,40 @@
                     <div class="card mb-4">
                         <div class="card-header border-0">
                             <div class="d-flex justify-content-between">
-                                <h3 class="card-title">Online Store Visitors</h3> <a href="javascript:void(0);" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">View Report</a>
+                                <h3 class="card-title">Sales</h3>
+                                <select name="" class="form-control ChangeYear" style="width: 60px;" id="">
+                                    @for($i=2022; $i<=date('Y'); $i++)
+                                        <option {{ ($year == $i) ? 'Selected' : '' }} value="{{ $i }}">{{ $i }}</option>
+                                    @endfor
+                                </select>
                             </div>
                         </div>
                         <div class="card-body">
                             <div class="d-flex">
-                                <p class="d-flex flex-column"> <span class="fw-bold fs-5">820</span> <span>Visitors Over Time</span> </p>
-                                <p class="ms-auto d-flex flex-column text-end"> <span class="text-success"> <i class="bi bi-arrow-up"></i> 12.5%
-                                    </span> <span class="text-secondary">Since last week</span> </p>
+                                <p class="d-flex flex-column">
+                                    <span class="fw-bold fs-5">${{ number_format($totalAmount) }}</span>
+                                    <span>Sales Over Time</span> </p>
                             </div>
                             <div class="position-relative mb-4">
-                                <div id="visitors-chart"></div>
+                                <div id="sales-chart-order"></div>
                             </div>
-                            <div class="d-flex flex-row justify-content-end"> <span class="me-2"> <i class="bi bi-square-fill text-primary"></i> This Week
-                                </span> <span> <i class="bi bi-square-fill text-secondary"></i> Last Week
-                                </span> </div>
+                            <div class="d-flex flex-row justify-content-end">
+                                <span class="me-2">
+                                    <i class="bi bi-square-fill text-primary"></i> Customer
+                                </span>
+                                <span class="me-2">
+                                    <i class="bi bi-square-fill text-secondary"></i> Order
+                                </span>
+                                <span>
+                                    <i class="bi bi-square-fill text-danger"></i> Amount
+                                </span>
+                            </div>
                         </div>
                     </div>
                     <div class="card mb-4">
                         <div class="card-header border-0">
                             <h3 class="card-title">Lastest Orders</h3>
+                            <div class="card-tools"> <a href="#" class="btn btn-tool btn-sm"> <i class="bi bi-download"></i> </a> <a href="#" class="btn btn-tool btn-sm"> <i class="bi bi-list"></i> </a> </div>
                         </div>
                         <div class="card-body table-responsive p-0">
                             <table class="table table-striped align-middle">
@@ -165,5 +179,83 @@
 @endsection
 
 @section('script')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+    $('.ChangeYear').change(function(){
+        var year = $(this).val();
+        window.location.href = "{{ url('admin/dashboard?year=') }}"+year;
+    });
+
+    const sales_chart_options = {
+        series: [{
+                name: "Customer",
+                data: [{{ ($getTotalCustomerMonth)}}],
+            },
+            {
+                name: "Order",
+                data: [{{ $getTotalOrderMonth }}],
+            },
+            {
+                name: "Amount",
+                data: [{{ $getTotalOrderAmountMonth }}],
+            },
+        ],
+        chart: {
+            type: "bar",
+            height: 200,
+        },
+        plotOptions: {
+            bar: {
+                horizontal: false,
+                columnWidth: "30%",
+                endingShape: "rounded",
+            },
+        },
+        legend: {
+            show: false,
+        },
+        colors: ["#0d6efd", "#20c997", "#ffc107"],
+        dataLabels: {
+            enabled: false,
+        },
+        stroke: {
+            show: true,
+            width: 2,
+            colors: ["transparent"],
+        },
+        xaxis: {
+            categories: [
+                'January',
+                'February',
+                'March',
+                'April',
+                'May',
+                'June',
+                'July',
+                'August',
+                'September',
+                'October',
+                'November',
+                'December',
+            ],
+        },
+        fill: {
+            opacity: 1,
+        },
+        tooltip: {
+            y: {
+                formatter: function(val) {
+                    return "$ " + val + " thousands";
+                },
+            },
+        },
+    };
+
+    const sales_chart = new ApexCharts(
+        document.querySelector("#sales-chart-order"),
+        sales_chart_options
+    );
+    sales_chart.render();
+</script>
 
 @endsection

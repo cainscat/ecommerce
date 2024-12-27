@@ -58,6 +58,26 @@ class OrderModel extends Model
                 ->get();
     }
 
+    static public function getTotalOrderMonth($start_date, $end_date)
+    {
+        return self::select('id')
+                ->where('is_payment', '=', 1)
+                ->where('is_delete', '=', 0)
+                ->whereDate('created_at', '>=', $start_date)
+                ->whereDate('created_at', '<=', $end_date)
+                ->count();
+    }
+
+    static public function getTotalOrderAmountMonth($start_date, $end_date)
+    {
+        return self::select('id')
+                ->where('is_payment', '=', 1)
+                ->where('is_delete', '=', 0)
+                ->whereDate('created_at', '>=', $start_date)
+                ->whereDate('created_at', '<=', $end_date)
+                ->sum('total_amount');
+    }
+
     static public function getRecord()
     {
         $return = OrderModel::select('orders.*');
