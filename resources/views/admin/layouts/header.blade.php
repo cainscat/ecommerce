@@ -55,7 +55,7 @@
     <div class="sidebar-wrapper">
 
 
-        <nav class="mt-2"> <!--begin::Sidebar Menu-->
+        <nav class="mt-2">
             <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
                     <a href="{{ url('admin/dashboard') }}" class="nav-link @if(Request::segment(2) == 'dashboard') active @endif">
@@ -68,6 +68,13 @@
                     <a href="{{ url('admin/admin/list') }}" class="nav-link @if(Request::segment(2) == 'admin') active @endif">
                         <i class="nav-icon bi bi-person-fill"></i>
                         <p>Admin</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ url('admin/customer/list') }}" class="nav-link @if(Request::segment(2) == 'customer') active @endif">
+                        <i class="nav-icon bi bi-person-lines-fill"></i>
+                        <p>Customer</p>
                     </a>
                 </li>
 

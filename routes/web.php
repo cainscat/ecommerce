@@ -36,6 +36,8 @@ Route::middleware(AdminMiddleware::class)->group(function () {
     Route::post('admin/admin/edit/{id}', [AdminController::class, 'update']);
     Route::get('admin/admin/delete/{id}', [AdminController::class, 'delete']);
 
+    Route::get('admin/customer/list', [AdminController::class, 'customer_list']);
+
     Route::get('admin/orders/list', [OrderController::class, 'list']);
     Route::get('admin/orders/detail/{id}', [OrderController::class, 'order_detail']);
     Route::get('admin/order_status', [OrderController::class, 'order_status']);
