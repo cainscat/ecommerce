@@ -2,11 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\UserMiddleware;
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController as ProductFront;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\UserController;
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\AdminController;
@@ -96,6 +98,14 @@ Route::middleware(AdminMiddleware::class)->group(function () {
     Route::post('admin/shipping_charge/edit/{id}', [ShippingChargeController::class, 'update']);
     Route::get('admin/shipping_charge/delete/{id}', [ShippingChargeController::class, 'delete']);
 
+});
+
+
+Route::middleware(UserMiddleware::class)->group(function () {
+    Route::get('user/dashboard', [UserController::class, 'dashboard']);
+    Route::get('user/orders', [UserController::class, 'orders']);
+    Route::get('user/edit-profile', [UserController::class, 'edit_profile']);
+    Route::get('user/change-password', [UserController::class, 'change_password']);
 });
 
 
