@@ -62,6 +62,25 @@ class OrderModel extends Model
                 ->where('is_delete', '=', 0)
                 ->count();
     }
+
+    static public function getRecordUser($user_id)
+    {
+        return OrderModel::select('orders.*')
+                ->where('user_id', '=', $user_id)
+                ->where('is_payment', '=', 1)
+                ->where('is_delete', '=', 0)
+                ->orderBy('id', 'desc')
+                ->paginate(20);
+    }
+    static public function getSingleUser($user_id, $id)
+    {
+        return OrderModel::select('orders.*')
+                ->where('user_id', '=', $user_id)
+                ->where('id', '=', $id)
+                ->where('is_payment', '=', 1)
+                ->where('is_delete', '=', 0)
+                ->first();
+    }
     //end user part
 
     //admin part
