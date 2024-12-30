@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Request;
+use Auth;
 
 class ProductModel extends Model
 {
@@ -137,6 +138,11 @@ class ProductModel extends Model
     static public function checkSlug($slug)
     {
         return self::where('slug','=',$slug)->count();
+    }
+
+    static public function checkWishlist($product_id)
+    {
+        return ProductWishlistModel::checkAlready($product_id, Auth::user()->id);
     }
 
     public function getColor()
