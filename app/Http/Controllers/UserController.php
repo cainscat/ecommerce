@@ -5,6 +5,7 @@ use App\Models\OrderModel;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Auth;
+use Hash;
 
 class UserController extends Controller
 {
@@ -90,6 +91,29 @@ class UserController extends Controller
         $data['meta_keywords'] = '';
 
         return view('user.change_password', $data);
+    }
+
+    public function update_password(Request $request)
+    {
+        $user = User::getSingle(Auth::user()->id);
+        if(Hash::check($request->old_password, $user->password))
+        {
+            if($request->password == $request->cpassword)
+            {
+                $user->password = Hash::make($request->password);
+                $user->save();
+
+                return redirect()->back()->with('success', "Your password successfully updated");
+            }
+            else
+            {
+                return redirect()->back()->with('error', "New password and Confirm password does not match");
+            }
+        }
+        else
+        {
+            return redirect()->back()->with('error', "Old password is not correct");
+        }
     }
 
 }

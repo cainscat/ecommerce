@@ -18,14 +18,30 @@
                     @include('user._sidebar')
                     <div class="col-md-8 col-lg-9">
                         <div class="tab-content">
-                            <p>
-                                Hello
-                                <span class="font-weight-normal text-dark">User</span>
-                                (not <span class="font-weight-normal text-dark">User</span>? <a href="#">Log out</a>)
-                                <br>
-                                From your account dashboard you can view your
-                                <a href="#tab-orders" class="tab-trigger-link link-underline">recent orders</a>, manage your <a href="#tab-address" class="tab-trigger-link">shipping and billing addresses</a>, and <a href="#tab-account" class="tab-trigger-link">edit your password and account details</a>.
-                            </p>
+                            @include('layouts._message')
+                            <form></form>
+                            <form action="" method="post">
+                                {{ csrf_field() }}
+
+                                <label>Old Password *</label>
+                                <input type="password" name="old_password" class="form-control" required>
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <label>New Password *</label>
+                                        <input type="password" name="password" class="form-control" required>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <label>Confirm Password *</label>
+                                        <input type="password" name="cpassword" class="form-control" required>
+                                    </div>
+                                </div>
+
+                                <button type="submit" style="width: 200px;" class="btn btn-outline-primary-2 btn-order btn-block">
+                                    Update Password
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>
