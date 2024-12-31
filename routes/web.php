@@ -111,6 +111,8 @@ Route::middleware(UserMiddleware::class)->group(function () {
     Route::post('user/change-password', [UserController::class, 'update_password']);
 
     Route::post('add_to_wishlist', [UserController::class, 'add_to_wishlist']);
+    Route::get('my-wishlist', [ProductFront::class, 'my_wishlist']);
+
 });
 
 
