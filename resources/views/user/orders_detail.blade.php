@@ -23,6 +23,7 @@
                     @include('user._sidebar')
                     <div class="col-md-8 col-lg-9">
                         <div class="tab-content">
+                            @include('layouts._message')
                             <div class="">
 
                                 <div class="form-group">
@@ -139,11 +140,28 @@
                                             <td>
                                                 <img style="height:100px;width: 180px;" src="{{ $getProductImage->getLogo() }}">
                                             </td>
-                                            <td>
+                                            <td style="max-width: 300px;">
                                                 <a target="_blank" href="{{ url($item->getProduct->slug) }}">{{ $item->getProduct->title }}</a>
                                                 <br>
-                                                Color: {{ $item->color_name }} <br/>
-                                                Size: {{ $item->size_name }}
+                                                @if(!empty($item->color_name))
+                                                    <b>Color</b>: {{ $item->color_name }} <br/>
+                                                @endif
+                                                @if(!empty($item->size_name))
+                                                    <b>Size</b>: {{ $item->size_name }}
+                                                    <br>
+                                                @endif
+                                                @if($getRecord->status == 3)
+                                                    @php
+                                                        $getReview = $item->getReview($item->getProduct->id, $getRecord->id);
+                                                    @endphp
+                                                    @if(!empty($getReview))
+                                                        <b>Rating</b>: {{ $getReview->rating }} <br>
+                                                        <b>Review</b>: {{ $getReview->review }} <br>
+                                                    @else
+                                                        <button class="btn btn-primary MakeReview" id="{{ $item->getProduct->id }}" data-order="{{ $getRecord->id }}">Make Review</button>
+                                                    @endif
+
+                                                @endif
                                             </td>
                                             <td>{{ $item->quantity }}</td>
                                             <td>{{ $item->price }}</td>
@@ -161,7 +179,65 @@
         </div>
     </div>
 </main>
+
+<div class="modal fade" id="MakeReviewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Make Review</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="undefined">&times;</span>
+          </button>
+        </div>
+
+        <form></form>
+        <form action="{{ url('user/make-review') }}" method="post">
+            {{ csrf_field() }}
+            <input type="hidden" id="getProductId" name="product_id" required>
+            <input type="hidden" id="getOrderId" name="order_id">
+
+            <div class="modal-body" style="padding: 20px;">
+                <div class="form-group" style="display: flex;">
+                    <label style="width: 60%;">Stars Vote * </label>
+                    <select class="form-control" style="width: 20%;" name="rating" required>
+                        <option value="">Select</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+                <hr style="margin: 1rem auto 2.5rem">
+                <div class="form-group">
+                    <label>Review * </label>
+                    <textarea class="form-control" name="review" required></textarea>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+
+      </div>
+    </div>
+</div>
+
 @endsection
 
 @section('script')
+<script>
+    $('body').delegate('.MakeReview', 'click', function(){
+        var product_id = $(this).attr('id');
+        var order_id = $(this).attr('data-order');
+
+        $('#getProductId').val(product_id);
+        $('#getOrderId').val(order_id);
+
+        $('#MakeReviewModal').modal('show');
+
+    });
+</script>
 @endsection
