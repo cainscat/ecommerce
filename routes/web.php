@@ -20,7 +20,7 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Admin\DiscountCodeController;
 use App\Http\Controllers\Admin\ShippingChargeController;
-
+use App\Http\Controllers\Admin\PageController;
 
 Route::get('admin', [AuthController::class, 'login_admin']);
 Route::post('admin', [AuthController::class, 'auth_login_admin']);
@@ -98,6 +98,10 @@ Route::middleware(AdminMiddleware::class)->group(function () {
     Route::post('admin/shipping_charge/edit/{id}', [ShippingChargeController::class, 'update']);
     Route::get('admin/shipping_charge/delete/{id}', [ShippingChargeController::class, 'delete']);
 
+    Route::get('admin/page/list', [PageController::class, 'list']);
+    Route::get('admin/page/edit/{id}', [PageController::class, 'edit']);
+    Route::post('admin/page/edit/{id}', [PageController::class, 'update']);
+
 });
 
 
@@ -127,7 +131,7 @@ Route::get('payment-method', [HomeController::class, 'payment_method']);
 Route::get('money-back-guarantee', [HomeController::class, 'money_back_guarantee']);
 Route::get('returns', [HomeController::class, 'return']);
 Route::get('shipping', [HomeController::class, 'shipping']);
-Route::get('terms-conditions', [HomeController::class, 'terms_conditions']);
+Route::get('terms-condition', [HomeController::class, 'terms_condition']);
 Route::get('privacy-policy', [HomeController::class, 'privacy_policy']);
 
 

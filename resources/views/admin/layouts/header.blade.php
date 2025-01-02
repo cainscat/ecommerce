@@ -135,6 +135,13 @@
                 </li>
 
                 <li class="nav-item">
+                    <a href="{{ url('admin/page/list') }}" class="nav-link @if(Request::segment(2) == 'page') active @endif">
+                        <i class="nav-icon bi bi-journal-album"></i>
+                        <p>Page</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a href="{{ url('admin/logout') }}" class="nav-link">
                         <i class="nav-icon bi bi-box-arrow-right"></i>
                         <p>Logout</p>

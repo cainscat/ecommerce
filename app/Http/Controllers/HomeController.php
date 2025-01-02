@@ -78,13 +78,13 @@ class HomeController extends Controller
         return view('page.shipping', $data);
     }
 
-    public function terms_conditions()
+    public function terms_condition()
     {
         $data['meta_title'] = 'Terms Conditions';
         $data['meta_description'] = '';
         $data['meta_keywords'] = '';
 
-        return view('page.terms_conditions', $data);
+        return view('page.terms_condition', $data);
     }
 
     public function privacy_policy()
