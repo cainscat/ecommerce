@@ -119,6 +119,17 @@ Route::middleware(UserMiddleware::class)->group(function () {
 
 
 Route::get('/', [HomeController::class, 'home']);
+Route::get('contact', [HomeController::class, 'contact']);
+Route::get('about', [HomeController::class, 'about']);
+
+Route::get('faq', [HomeController::class, 'faq']);
+Route::get('payment-method', [HomeController::class, 'payment_method']);
+Route::get('money-back-guarantee', [HomeController::class, 'money_back_guarantee']);
+Route::get('returns', [HomeController::class, 'return']);
+Route::get('shipping', [HomeController::class, 'shipping']);
+Route::get('terms-conditions', [HomeController::class, 'terms_conditions']);
+Route::get('privacy-policy', [HomeController::class, 'privacy_policy']);
+
 
 Route::post('auth_register', [AuthController::class, 'auth_register']);
 Route::get('activate/{id}', [AuthController::class, 'activate_email']);
