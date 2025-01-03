@@ -13,6 +13,11 @@ class PageModel extends Model
         return self::find($id);
     }
 
+    static public function getSlug($slug)
+    {
+        return self::where('slug', '=', $slug)->first();
+    }
+
     static public function getRecord()
     {
         return self::select('page.*')->get();

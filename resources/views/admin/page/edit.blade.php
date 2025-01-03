@@ -41,7 +41,7 @@
 
                                 <div class="form-group mt-2">
                                     <label>Description <span style="color: red"></span></label>
-                                    <textarea id="summernote" name="description" class="form-control editor" placeholder="Description"></textarea>
+                                    <textarea id="summernote" name="description" class="form-control editor" placeholder="Description">{{ $getRecord->description }}</textarea>
                                 </div>
 
                                 <hr>
