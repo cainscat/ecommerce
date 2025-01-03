@@ -142,6 +142,13 @@
                 </li>
 
                 <li class="nav-item">
+                    <a href="{{ url('admin/system-setting') }}" class="nav-link @if(Request::segment(2) == 'system-setting') active @endif">
+                        <i class="nav-icon bi bi-gear-fill"></i>
+                        <p>System Setting</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a href="{{ url('admin/logout') }}" class="nav-link">
                         <i class="nav-icon bi bi-box-arrow-right"></i>
                         <p>Logout</p>
