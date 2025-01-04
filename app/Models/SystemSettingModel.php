@@ -25,6 +25,18 @@ class SystemSettingModel extends Model
         }
     }
 
+    public function getFooterLogo()
+    {
+        if(!empty($this->footer_logo) && file_exists('upload/setting/'.$this->footer_logo))
+        {
+            return url('upload/setting/'.$this->footer_logo);
+        }
+        else
+        {
+            return "";
+        }
+    }
+
     public function getFevicon()
     {
         if(!empty($this->fevicon) && file_exists('upload/setting/'.$this->fevicon))

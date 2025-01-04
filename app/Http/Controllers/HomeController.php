@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\PageModel;
-
+use App\Models\SystemSettingModel;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -27,6 +27,7 @@ class HomeController extends Controller
     {
         $getPage = PageModel::getSlug('contact');
         $data['getPage'] = $getPage;
+        $data['getSystemSetting'] = SystemSettingModel::getSingle();
 
         $data['meta_title'] = $getPage->meta_title;
         $data['meta_description'] = $getPage->meta_description;

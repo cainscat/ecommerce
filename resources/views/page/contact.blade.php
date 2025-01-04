@@ -23,38 +23,65 @@
                     <div class="row">
                         <div class="col-sm-7">
                             <div class="contact-info">
-                                <h3>The Office</h3>
+                                <h3></h3>
 
                                 <ul class="contact-list">
-                                    <li>
-                                        <i class="icon-map-marker"></i>
-                                        70 Washington Square South New York, NY 10012, United States
-                                    </li>
-                                    <li>
-                                        <i class="icon-phone"></i>
-                                        <a href="tel:#">+92 423 567</a>
-                                    </li>
-                                    <li>
-                                        <i class="icon-envelope"></i>
-                                        <a href="mailto:#">info@Molla.com</a>
-                                    </li>
+                                    @if(!empty($getSystemSetting->address))
+                                        <li>
+                                            <i class="icon-map-marker"></i>
+                                            {{ $getSystemSetting->address }}
+                                        </li>
+                                    @endif
+
+                                    @if(!empty($getSystemSetting->phone))
+                                        <li>
+                                            <i class="icon-phone"></i>
+                                            <a href="tel:{{ $getSystemSetting->phone }}">{{ $getSystemSetting->phone }}</a>
+                                        </li>
+                                    @endif
+
+                                    @if(!empty($getSystemSetting->phone_two))
+                                        <li>
+                                            <i class="icon-phone"></i>
+                                            <a href="tel:{{ $getSystemSetting->phone_two }}">{{ $getSystemSetting->phone_two }}</a>
+                                        </li>
+                                    @endif
+
+                                    @if(!empty($getSystemSettingApp->email))
+                                        <li>
+                                            <i class="icon-envelope"></i>
+                                            <a href="mailto:{{ $getSystemSetting->email }}">{{ $getSystemSetting->email }}</a>
+                                        </li>
+                                    @endif
+
+                                    @if(!empty($getSystemSetting->email_two))
+                                        <li>
+                                            <i class="icon-envelope"></i>
+                                            <a href="mailto:{{ $getSystemSetting->email_two }}">{{ $getSystemSetting->email_two }}</a>
+                                        </li>
+                                    @endif
                                 </ul>
                             </div>
                         </div>
 
                         <div class="col-sm-5">
                             <div class="contact-info">
-                                <h3>The Office</h3>
+                                <h3></h3>
 
                                 <ul class="contact-list">
-                                    <li>
-                                        <i class="icon-clock-o"></i>
-                                        <span class="text-dark">Monday-Saturday</span> <br>11am-7pm ET
-                                    </li>
-                                    <li>
-                                        <i class="icon-calendar"></i>
+                                    @if(!empty($getSystemSetting->working_day))
+                                        <li>
+
+                                            <i class="icon-calendar"></i>
+                                            <span class="text-dark">{{ $getSystemSetting->working_day }}</span>
+                                            <br>
+                                            {{ $getSystemSetting->working_hour }}
+                                        </li>
+                                    @endif
+                                    {{-- <li>
+                                       <i class="icon-clock-o"></i>
                                         <span class="text-dark">Sunday</span> <br>11am-6pm ET
-                                    </li>
+                                    </li> --}}
                                 </ul>
                             </div>
                         </div>

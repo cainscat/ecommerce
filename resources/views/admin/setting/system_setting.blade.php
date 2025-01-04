@@ -37,6 +37,14 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <label>Footer Logo <span style="color: red"></span></label>
+                                    <input type="file" class="form-control" name="footer_logo">
+                                    @if(!empty($getRecord->getLogo()))
+                                        <img style="width: 200px;" src="{{ $getRecord->getFooterLogo() }}">
+                                    @endif
+                                </div>
+
+                                <div class="form-group">
                                     <label>Fevicon <span style="color: red"></span></label>
                                     <input type="file" class="form-control" name="fevicon">
                                     @if(!empty($getRecord->getFevicon()))
@@ -87,6 +95,11 @@
                                 <div class="form-group">
                                     <label>Email 2 <span style="color: red"></span></label>
                                     <input type="text" class="form-control" value="{{ $getRecord->email_two }}" name="email_two">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Working Day <span style="color: red"></span></label>
+                                    <input type="text" class="form-control" value="{{ $getRecord->working_day }}" name="working_day">
                                 </div>
 
                                 <div class="form-group">

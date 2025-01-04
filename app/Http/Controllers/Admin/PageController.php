@@ -69,6 +69,8 @@ class PageController extends Controller
         $save->submit_email = trim($request->submit_email);
         $save->email = trim($request->email);
         $save->email_two = trim($request->email_two);
+        $save->working_day = trim($request->working_day);
+        $save->working_hour = trim($request->working_hour);
         $save->facebook_link = trim($request->facebook_link);
         $save->twitter_link = trim($request->twitter_link);
         $save->instagram_link = trim($request->instagram_link);
@@ -83,6 +85,16 @@ class PageController extends Controller
             $filename = strtolower($randomStr).'.'.$ext;
             $file->move('upload/setting/', $filename);
             $save->logo = trim($filename);
+        }
+
+        if(!empty($request->file('footer_logo')))
+        {
+            $file = $request->file('footer_logo');
+            $ext = $file->getClientOriginalExtension();
+            $randomStr = Str::random(10);
+            $filename = strtolower($randomStr).'.'.$ext;
+            $file->move('upload/setting/', $filename);
+            $save->footer_logo = trim($filename);
         }
 
         if(!empty($request->file('fevicon')))
