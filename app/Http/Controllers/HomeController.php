@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 use App\Models\PageModel;
 use App\Models\SystemSettingModel;
+use App\Models\ContactUsModel;
+use App\Mail\ContactUsMail;
 use Illuminate\Http\Request;
+use Auth;
+use Mail;
 
 class HomeController extends Controller
 {
@@ -15,10 +19,6 @@ class HomeController extends Controller
         $data['meta_title'] = $getPage->meta_title;
         $data['meta_description'] = $getPage->meta_description;
         $data['meta_keywords'] = $getPage->meta_keywords;
-
-        // $data['meta_title'] = 'E-Commerce';
-        // $data['meta_description'] = '';
-        // $data['meta_keywords'] = '';
 
         return view('home', $data);
     }
@@ -34,6 +34,26 @@ class HomeController extends Controller
         $data['meta_keywords'] = $getPage->meta_keywords;
 
         return view('page.contact', $data);
+    }
+
+    public function submit_contact(Request $request)
+    {
+        $save = new ContactUsModel;
+        if(!empty(Auth::check()))
+        {
+            $save->user_id = Auth::user()->id;
+        }
+        $save->name = trim($request->name);
+        $save->email = trim($request->email);
+        $save->phone = trim($request->phone);
+        $save->subject = trim($request->subject);
+        $save->message = trim($request->message);
+        $save->save();
+
+        $getSystemSetting = SystemSettingModel::getSingle();
+        Mail::to($getSystemSetting->submit_email)->send(new ContactUsMail($save));
+
+        return redirect()->back()->with('success', "Your information successfully send!");
     }
 
     public function about()

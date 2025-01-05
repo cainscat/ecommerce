@@ -127,6 +127,7 @@ Route::middleware(UserMiddleware::class)->group(function () {
 
 Route::get('/', [HomeController::class, 'home']);
 Route::get('contact', [HomeController::class, 'contact']);
+Route::post('contact', [HomeController::class, 'submit_contact']);
 Route::get('about', [HomeController::class, 'about']);
 
 Route::get('faq', [HomeController::class, 'faq']);
