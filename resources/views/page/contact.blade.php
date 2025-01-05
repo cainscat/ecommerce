@@ -92,7 +92,7 @@
                     <p class="mb-2">Use the form below to get in touch with the sales team</p>
                     @include('layouts._message')
                     <form></form>
-                    <form action="" class="contact-form mb-3" method="post">
+                    <form action="" class="contact-form mb-3" autocomplete="off" method="post">
                         {{ csrf_field() }}
                         <div class="row">
                             <div class="col-sm-6">
@@ -120,6 +120,13 @@
 
                         <label for="cmessage" class="sr-only">Message</label>
                         <textarea class="form-control" cols="30" rows="4" name="message" id="cmessage" required placeholder="Message *" required></textarea>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label for="verfication">{{ $first_number }} + {{ $second_number }} = ?</label>
+                                <input type="text" class="form-control" name="verfication" id="verfication" placeholder="Verfication Sum">
+                            </div>
+                        </div>
 
                         <button type="submit" class="btn btn-outline-primary-2 btn-minwidth-sm">
                             <span>SUBMIT</span>

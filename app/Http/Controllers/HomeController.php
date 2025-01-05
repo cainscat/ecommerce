@@ -6,6 +6,7 @@ use App\Models\SystemSettingModel;
 use App\Models\ContactUsModel;
 use App\Mail\ContactUsMail;
 use Illuminate\Http\Request;
+use Session;
 use Auth;
 use Mail;
 
@@ -25,6 +26,14 @@ class HomeController extends Controller
 
     public function contact()
     {
+        $first_number = mt_rand(0,9);
+        $second_number = mt_rand(0,9);
+
+        $data['first_number'] = $first_number;
+        $data['second_number'] = $second_number;
+
+        Session::put('total_sum', $first_number + $second_number);
+
         $getPage = PageModel::getSlug('contact');
         $data['getPage'] = $getPage;
         $data['getSystemSetting'] = SystemSettingModel::getSingle();
@@ -38,22 +47,36 @@ class HomeController extends Controller
 
     public function submit_contact(Request $request)
     {
-        $save = new ContactUsModel;
-        if(!empty(Auth::check()))
+        if(!empty($request->verfication) && !empty(Session::get('total_sum')))
         {
-            $save->user_id = Auth::user()->id;
+            if(trim(Session::get('total_sum')) == trim($request->verfication))
+            {
+                $save = new ContactUsModel;
+                if(!empty(Auth::check()))
+                {
+                    $save->user_id = Auth::user()->id;
+                }
+                $save->name = trim($request->name);
+                $save->email = trim($request->email);
+                $save->phone = trim($request->phone);
+                $save->subject = trim($request->subject);
+                $save->message = trim($request->message);
+                $save->save();
+
+                $getSystemSetting = SystemSettingModel::getSingle();
+                Mail::to($getSystemSetting->submit_email)->send(new ContactUsMail($save));
+
+                return redirect()->back()->with('success', "Your information successfully send!");
+            }
+            else
+            {
+                return redirect()->back()->with('error', "Your verfication sum is wrong! Try again!");
+            }
         }
-        $save->name = trim($request->name);
-        $save->email = trim($request->email);
-        $save->phone = trim($request->phone);
-        $save->subject = trim($request->subject);
-        $save->message = trim($request->message);
-        $save->save();
-
-        $getSystemSetting = SystemSettingModel::getSingle();
-        Mail::to($getSystemSetting->submit_email)->send(new ContactUsMail($save));
-
-        return redirect()->back()->with('success', "Your information successfully send!");
+        else
+        {
+            return redirect()->back()->with('error', "Your verfication sum is wrong! Try again!");
+        }
     }
 
     public function about()
