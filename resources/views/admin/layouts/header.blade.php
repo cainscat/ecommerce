@@ -135,6 +135,13 @@
                 </li>
 
                 <li class="nav-item">
+                    <a href="{{ url('admin/contact_us') }}" class="nav-link @if(Request::segment(2) == 'contact_us') active @endif">
+                        <i class="nav-icon bi bi-envelope-at-fill"></i>
+                        <p>Contact Us</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a href="{{ url('admin/page/list') }}" class="nav-link @if(Request::segment(2) == 'page') active @endif">
                         <i class="nav-icon bi bi-journal-album"></i>
                         <p>Page</p>

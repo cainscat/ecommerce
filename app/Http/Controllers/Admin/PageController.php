@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\PageModel;
+use App\Models\ContactUsModel;
 use App\Models\SystemSettingModel;
 use Str;
 
@@ -120,6 +121,20 @@ class PageController extends Controller
         $save->save();
 
         return redirect()->back()->with('success', "Setting Successfully Updated");
+    }
+
+    public function contact_us()
+    {
+        $data['getRecord'] = ContactUsModel::getRecord();
+        $data['header_title'] = "Contact Us";
+        return view('admin.contactus.list', $data);
+    }
+
+    public function contact_us_delete($id)
+    {
+        ContactUsModel::where('id', '=', $id)->delete();
+
+        return redirect()->back()->with('success', "Contact Us successfully deleted");
     }
 
 }
