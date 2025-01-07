@@ -142,6 +142,13 @@
                 </li>
 
                 <li class="nav-item">
+                    <a href="{{ url('admin/partner/list') }}" class="nav-link @if(Request::segment(2) == 'partner') active @endif">
+                        <i class="nav-icon bi bi-globe2"></i>
+                        <p>Partner Logo</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a href="{{ url('admin/contact_us') }}" class="nav-link @if(Request::segment(2) == 'contact_us') active @endif">
                         <i class="nav-icon bi bi-envelope-at-fill"></i>
                         <p>Contact Us</p>

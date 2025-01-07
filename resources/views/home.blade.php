@@ -47,64 +47,52 @@
                 </div>
             </div>
 
-            <div class="mb-6"></div>
+            @if(!empty($getPartner->count()))
+                <div class="mb-6"></div>
 
-            <div class="owl-carousel owl-simple" data-toggle="owl"
-                data-owl-options='{
-                    "nav": false,
-                    "dots": false,
-                    "margin": 30,
-                    "loop": false,
-                    "responsive": {
-                        "0": {
-                            "items":2
-                        },
-                        "420": {
-                            "items":3
-                        },
-                        "600": {
-                            "items":4
-                        },
-                        "900": {
-                            "items":5
-                        },
-                        "1024": {
-                            "items":6
+                <div class="owl-carousel owl-simple" data-toggle="owl"
+                    data-owl-options='{
+                        "nav": false,
+                        "dots": false,
+                        "margin": 30,
+                        "loop": false,
+                        "responsive": {
+                            "0": {
+                                "items":2
+                            },
+                            "420": {
+                                "items":3
+                            },
+                            "600": {
+                                "items":4
+                            },
+                            "900": {
+                                "items":5
+                            },
+                            "1024": {
+                                "items":6
+                            }
                         }
-                    }
-                }'>
-                <a href="#" class="brand">
-                    <img src="assets/images/brands/1.png" alt="Brand Name">
-                </a>
+                    }'>
+                    @foreach($getPartner as $partner)
+                        @if(!empty($partner->getImage()))
+                            <a href="{{ !empty($partner->button_link) ? $partner->button_link : '#' }}" class="brand">
+                                <img src="{{ $partner->getImage() }}">
+                            </a>
+                        @endif
+                    @endforeach
+                </div>
 
-                <a href="#" class="brand">
-                    <img src="assets/images/brands/2.png" alt="Brand Name">
-                </a>
+            @endif
 
-                <a href="#" class="brand">
-                    <img src="assets/images/brands/3.png" alt="Brand Name">
-                </a>
+        </div>
+    </div>
 
-                <a href="#" class="brand">
-                    <img src="assets/images/brands/4.png" alt="Brand Name">
-                </a>
-
-                <a href="#" class="brand">
-                    <img src="assets/images/brands/5.png" alt="Brand Name">
-                </a>
-
-                <a href="#" class="brand">
-                    <img src="assets/images/brands/6.png" alt="Brand Name">
-                </a>
-            </div><!-- End .owl-carousel -->
-        </div><!-- End .container -->
-    </div><!-- End .bg-lighter -->
-
-    <div class="mb-6"></div><!-- End .mb-6 -->
+    <div class="mb-6"></div>
 
     <div class="container">
         <div class="heading heading-center mb-3">
-            <h2 class="title-lg">Trendy Products</h2><!-- End .title -->
+            <h2 class="title-lg">Trendy Products</h2>
 
             <ul class="nav nav-pills justify-content-center" role="tablist">
                 <li class="nav-item">

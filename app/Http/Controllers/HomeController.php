@@ -5,6 +5,7 @@ use App\Models\PageModel;
 use App\Models\SystemSettingModel;
 use App\Models\ContactUsModel;
 use App\Models\SliderModel;
+use App\Models\PartnerModel;
 use App\Mail\ContactUsMail;
 use Illuminate\Http\Request;
 use Session;
@@ -19,6 +20,7 @@ class HomeController extends Controller
         $data['getPage'] = $getPage;
 
         $data['getSlider'] = SliderModel::getRecordActive();
+        $data['getPartner'] = PartnerModel::getRecordActive();
 
         $data['meta_title'] = $getPage->meta_title;
         $data['meta_description'] = $getPage->meta_description;

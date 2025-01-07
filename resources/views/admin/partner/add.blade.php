@@ -7,7 +7,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-6">
-                    <h3 class="mb-0">Add New Slider</h3>
+                    <h3 class="mb-0">Add New Partner</h3>
                 </div>
             </div>
         </div>
@@ -20,10 +20,6 @@
                         <form action="" method="post" enctype="multipart/form-data">
                             {{ csrf_field() }}
                             <div class="card-body">
-                                <div class="form-group">
-                                    <label>Title <span style="color: red">*</span></label>
-                                    <input type="text" class="form-control" required value="{{ old('title') }}" name="title" placeholder="Title">
-                                </div>
 
                                 <div class="form-group">
                                     <label>Image <span style="color: red">*</span></label>
@@ -31,13 +27,8 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Button Name <span style="color: red"></span></label>
-                                    <input type="text" class="form-control" required value="{{ old('button_name') }}" name="button_name" placeholder="Button Name">
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Button Link <span style="color: red"></span></label>
-                                    <input type="text" class="form-control" required value="{{ old('button_link') }}" name="button_link" placeholder="Button Link">
+                                    <label>Link <span style="color: red"></span></label>
+                                    <input type="text" class="form-control" required value="{{ old('button_link') }}" name="button_link" placeholder="Link">
                                 </div>
 
                                 <div class="form-group">
