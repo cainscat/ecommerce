@@ -21,8 +21,8 @@
                             {{ csrf_field() }}
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label>Title <span style="color: red">*</span></label>
-                                    <input type="text" class="form-control" required value="{{ old('title', $getRecord->title) }}" name="title" placeholder="Title">
+                                    <label>Title <span style="color: red"></span></label>
+                                    <input type="text" class="form-control" value="{{ old('title', $getRecord->title) }}" name="title" placeholder="Title">
                                 </div>
 
                                 <div class="form-group">
@@ -35,12 +35,12 @@
 
                                 <div class="form-group">
                                     <label>Button Name <span style="color: red"></span></label>
-                                    <input type="text" class="form-control" required value="{{ old('button_name', $getRecord->button_name) }}" name="button_name" placeholder="Button Name">
+                                    <input type="text" class="form-control" value="{{ old('button_name', $getRecord->button_name) }}" name="button_name" placeholder="Button Name">
                                 </div>
 
                                 <div class="form-group">
                                     <label>Button Link <span style="color: red"></span></label>
-                                    <input type="text" class="form-control" required value="{{ old('button_link', $getRecord->button_link) }}" name="button_link" placeholder="Button Link">
+                                    <input type="text" class="form-control" value="{{ old('button_link', $getRecord->button_link) }}" name="button_link" placeholder="Button Link">
                                 </div>
 
                                 <div class="form-group">
