@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Admin\DiscountCodeController;
 use App\Http\Controllers\Admin\ShippingChargeController;
 use App\Http\Controllers\Admin\PageController;
+use App\Http\Controllers\Admin\SliderController;
 
 Route::get('admin', [AuthController::class, 'login_admin']);
 Route::post('admin', [AuthController::class, 'auth_login_admin']);
@@ -97,6 +98,13 @@ Route::middleware(AdminMiddleware::class)->group(function () {
     Route::get('admin/shipping_charge/edit/{id}', [ShippingChargeController::class, 'edit']);
     Route::post('admin/shipping_charge/edit/{id}', [ShippingChargeController::class, 'update']);
     Route::get('admin/shipping_charge/delete/{id}', [ShippingChargeController::class, 'delete']);
+
+    Route::get('admin/slider/list', [SliderController::class, 'list']);
+    Route::get('admin/slider/add', [SliderController::class, 'add']);
+    Route::post('admin/slider/add', [SliderController::class, 'insert']);
+    Route::get('admin/slider/edit/{id}', [SliderController::class, 'edit']);
+    Route::post('admin/slider/edit/{id}', [SliderController::class, 'update']);
+    Route::get('admin/slider/delete/{id}', [SliderController::class, 'delete']);
 
     Route::get('admin/page/list', [PageController::class, 'list']);
     Route::get('admin/page/edit/{id}', [PageController::class, 'edit']);
