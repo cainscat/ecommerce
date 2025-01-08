@@ -36,6 +36,9 @@ class ProductController extends Controller
         $data['getColor'] = ColorModel::getRecordActive();
         $data['getBrand'] = BrandModel::getRecordActive();
 
+        $page = 0;
+        $data['page'] = $page;
+
         return view('product.list', $data);
     }
 
@@ -71,7 +74,7 @@ class ProductController extends Controller
             $data['getSubCategory'] = $getSubCategory;
             $data['getCategory'] = $getCategory;
 
-            $getProduct = ProductModel::getProduct($getCategory->id,$getSubCategory->id);
+            $getProduct = ProductModel::getProduct($getCategory->id, $getSubCategory->id);
 
             $page = 0;
             if(!empty($getProduct->nextPageUrl()))
@@ -92,7 +95,7 @@ class ProductController extends Controller
             return view('product.list', $data);
         }
 
-        else if(!empty( $getCategory))
+        else if(!empty($getCategory))
         {
             $data['getSubCategoryFilter'] = SubCategoryModel::getRecordSubCategory($getCategory->id);
 
@@ -131,15 +134,15 @@ class ProductController extends Controller
     {
         $getProduct = ProductModel::getProduct();
         $page = 0;
-            if(!empty($getProduct->nextPageUrl()))
+        if(!empty($getProduct->nextPageUrl()))
+        {
+            $parse_url = parse_url($getProduct->nextPageUrl());
+            if(!empty($parse_url['query']))
             {
-                $parse_url = parse_url($getProduct->nextPageUrl());
-                if(!empty($parse_url['query']))
-                {
-                    parse_str($parse_url['query'], $get_array);
-                    $page = !empty($get_array['page']) ? $get_array['page'] : 0;
-                }
+                parse_str($parse_url['query'], $get_array);
+                $page = !empty($get_array['page']) ? $get_array['page'] : 0;
             }
+        }
 
         return response()->json([
             "status" => true,
