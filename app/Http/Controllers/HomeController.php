@@ -34,6 +34,20 @@ class HomeController extends Controller
         return view('home', $data);
     }
 
+    public function recent_arrival_category_product(Request $request)
+    {
+        $getProduct = ProductModel::getRecentArrival();
+        $getCategory = CategoryModel::getSingle($request->category_id);
+
+        return response()->json([
+            "status" => true,
+            "success" => view("product._list_recent_arrival",[
+                "getProduct" => $getProduct,
+                "getCategory" => $getCategory,
+            ])->render(),
+        ], 200);
+    }
+
     public function contact()
     {
         $first_number = mt_rand(0,9);
@@ -184,6 +198,5 @@ class HomeController extends Controller
 
         return view('page.privacy_policy', $data);
     }
-
 
 }

@@ -157,6 +157,9 @@ Route::get('shipping', [HomeController::class, 'shipping']);
 Route::get('terms-condition', [HomeController::class, 'terms_condition']);
 Route::get('privacy-policy', [HomeController::class, 'privacy_policy']);
 
+Route::post('recent_arrival_category_product', [HomeController::class, 'recent_arrival_category_product']);
+
+
 
 Route::post('auth_register', [AuthController::class, 'auth_register']);
 Route::get('activate/{id}', [AuthController::class, 'activate_email']);
