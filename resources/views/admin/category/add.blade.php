@@ -17,7 +17,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card card-primary">
-                        <form action="" method="post">
+                        <form action="" method="post" enctype="multipart/form-data">
                             {{ csrf_field() }}
                             <div class="card-body">
                                 <div class="form-group">
@@ -38,6 +38,24 @@
                                         <option {{ (old('status') == 0) ? 'selected' : '' }} value="0">Active</option>
                                     </select>
                                 </div>
+
+                                <hr>
+
+                                <div class="form-group">
+                                    <label>Image <span style="color: red"></span></label>
+                                    <input type="file" class="form-control" name="image_name">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Button Name <span style="color: red"></span></label>
+                                    <input type="text" class="form-control" value="{{ old('button_name') }}" name="button_name" placeholder="Button Name">
+                                </div>
+
+                                <div class="form-group">
+                                    <label style="display: block;">Home Screen <span style="color: red"></span></label>
+                                    <input type="checkbox" name="is_home">
+                                </div>
+
 
                                 <hr>
 
