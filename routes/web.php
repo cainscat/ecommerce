@@ -24,6 +24,7 @@ use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\PartnerController;
 use App\Http\Controllers\Admin\BlogCategoryController;
+use App\Http\Controllers\Admin\BlogController;
 
 
 Route::get('admin', [AuthController::class, 'login_admin']);
@@ -70,6 +71,13 @@ Route::middleware(AdminMiddleware::class)->group(function () {
     Route::get('admin/blog_category/edit/{id}', [BlogCategoryController::class, 'edit']);
     Route::post('admin/blog_category/edit/{id}', [BlogCategoryController::class, 'update']);
     Route::get('admin/blog_category/delete/{id}', [BlogCategoryController::class, 'delete']);
+
+    Route::get('admin/blog/list', [BlogController::class, 'list']);
+    Route::get('admin/blog/add', [BlogController::class, 'add']);
+    Route::post('admin/blog/add', [BlogController::class, 'insert']);
+    Route::get('admin/blog/edit/{id}', [BlogController::class, 'edit']);
+    Route::post('admin/blog/edit/{id}', [BlogController::class, 'update']);
+    Route::get('admin/blog/delete/{id}', [BlogController::class, 'delete']);
 
     Route::get('admin/brand/list', [BrandController::class, 'list']);
     Route::get('admin/brand/add', [BrandController::class, 'add']);

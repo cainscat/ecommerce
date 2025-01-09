@@ -7,7 +7,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-6">
-                    <h3 class="mb-0">Add New Category</h3>
+                    <h3 class="mb-0">Add New Blog</h3>
                 </div>
             </div>
         </div>
@@ -21,14 +21,29 @@
                             {{ csrf_field() }}
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label>Category Name <span style="color: red">*</span></label>
-                                    <input type="text" class="form-control" required value="{{ old('name') }}" name="name" placeholder="Category Name">
+                                    <label>Blog Title <span style="color: red">*</span></label>
+                                    <input type="text" class="form-control" required value="{{ old('title') }}" name="title" placeholder="Title">
+                                    <div style="color: red">{{ $errors->first('title') }}</div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Slug <span style="color: red">*</span></label>
-                                    <input type="text" class="form-control" required value="{{ old('slug') }}" name="slug" placeholder="Slug Ex. URL">
-                                    <div style="color: red">{{ $errors->first('slug') }}</div>
+                                    <label>Blog Category <span style="color: red">*</span></label>
+                                    <select class="form-control" name="blog_category_id" required>
+                                        <option value="">Select</option>
+                                        @foreach($getCategory as $category)
+                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Image <span style="color: red">*</span></label>
+                                    <input type="file" class="form-control" required name="image_name">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Description <span style="color: red">*</span></label>
+                                    <textarea class="form-control editor" name="description"></textarea>
                                 </div>
 
                                 <div class="form-group">
@@ -38,24 +53,6 @@
                                         <option {{ (old('status') == 1) ? 'selected' : '' }} value="1">InActive</option>
                                     </select>
                                 </div>
-
-                                <hr>
-
-                                <div class="form-group">
-                                    <label>Image <span style="color: red"></span></label>
-                                    <input type="file" class="form-control" name="image_name">
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Button Name <span style="color: red"></span></label>
-                                    <input type="text" class="form-control" value="{{ old('button_name') }}" name="button_name" placeholder="Button Name">
-                                </div>
-
-                                <div class="form-group">
-                                    <label style="display: block;">Home Screen <span style="color: red"></span></label>
-                                    <input type="checkbox" name="is_home">
-                                </div>
-
 
                                 <hr>
 
@@ -86,5 +83,17 @@
 @endsection
 
 @section('script')
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.js"></script>
 
+<script>
+    //Text editor
+    $(document).ready(function() {
+        $('.editor').summernote({
+            placeholder: 'Enter here...',
+            tabsize: 2,
+            height: 100
+        });
+    });
+</script>
 @endsection

@@ -34,8 +34,8 @@
                                 <div class="form-group">
                                     <label>Status <span style="color: red">*</span></label>
                                     <select class="form-control" name="status">
-                                        <option {{ (old('status') == 0) ? 'selected' : '' }} value="1">InActive</option>
                                         <option {{ (old('status') == 0) ? 'selected' : '' }} value="0">Active</option>
+                                        <option {{ (old('status') == 1) ? 'selected' : '' }} value="1">InActive</option>
                                     </select>
                                 </div>
 

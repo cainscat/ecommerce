@@ -170,6 +170,13 @@
                 </li>
 
                 <li class="nav-item">
+                    <a href="{{ url('admin/blog/list') }}" class="nav-link @if(Request::segment(2) == 'blog') active @endif">
+                        <i class="nav-icon bi bi-newspaper"></i>
+                        <p>Blog</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a href="{{ url('admin/system-setting') }}" class="nav-link @if(Request::segment(2) == 'system-setting') active @endif">
                         <i class="nav-icon bi bi-gear-fill"></i>
                         <p>System Setting</p>
