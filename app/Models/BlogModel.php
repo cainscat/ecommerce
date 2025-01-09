@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Request;
 
 class BlogModel extends Model
 {
@@ -36,6 +37,21 @@ class BlogModel extends Model
                 ->where('blog.status', '=', 0)
                 ->orderBy('blog.name', 'asc')
                 ->get();
+    }
+
+    static public function getBlog()
+    {
+        $return = self::select('blog.*');
+        if(!empty(Request::get('search')))
+        {
+            $return = $return->where('blog.title', 'like', '%'.Request::get('search').'%');
+        }
+        $return = $return->where('blog.is_delete', '=', 0)
+                ->where('blog.status', '=', 0)
+                ->orderBy('blog.id', 'desc')
+                ->paginate(20);
+
+        return $return;
     }
 
     public function getImage()

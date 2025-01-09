@@ -8,6 +8,8 @@ use App\Models\SliderModel;
 use App\Models\PartnerModel;
 use App\Models\ProductModel;
 use App\Models\CategoryModel;
+use App\Models\BlogModel;
+use App\Models\BlogCategoryModel;
 
 use App\Mail\ContactUsMail;
 use Illuminate\Http\Request;
@@ -198,6 +200,21 @@ class HomeController extends Controller
         $data['meta_keywords'] = $getPage->meta_keywords;
 
         return view('page.privacy_policy', $data);
+    }
+
+    public function blog()
+    {
+        $getPage = PageModel::getSlug('blog');
+        $data['getPage'] = $getPage;
+
+        $data['meta_title'] = $getPage->meta_title;
+        $data['meta_description'] = $getPage->meta_description;
+        $data['meta_keywords'] = $getPage->meta_keywords;
+
+        $data['getBlog'] = BlogModel::getBlog();
+        $data['getBlogCategory'] = BlogCategoryModel::getRecordActive();
+
+        return view('blog.list', $data);
     }
 
 }
