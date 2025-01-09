@@ -26,6 +26,7 @@ class HomeController extends Controller
         $data['getPartner'] = PartnerModel::getRecordActive();
         $data['getCategory'] = CategoryModel::getRecordActiveHome();
         $data['getProduct'] = ProductModel::getRecentArrival();
+        $data['getProductTrendy'] = ProductModel::getProductTrendy();
 
         $data['meta_title'] = $getPage->meta_title;
         $data['meta_description'] = $getPage->meta_description;

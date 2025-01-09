@@ -81,6 +81,21 @@
                                 </div>
 
                                 <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>
+                                                <strong>Trendy Product </strong>
+                                            </label>
+                                            <div>
+                                                <label>
+                                                    <input {{ !empty($product->is_trendy) ? 'checked' : '' }} type="checkbox" name="is_trendy">
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label><strong>Color </strong><span style="color: red">*</span></label>
@@ -104,6 +119,7 @@
                                 </div>
 
                                 <hr>
+
 
                                 <div class="row">
                                     <div class="col-md-6">
