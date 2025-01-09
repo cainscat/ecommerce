@@ -23,6 +23,8 @@ use App\Http\Controllers\Admin\ShippingChargeController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\PartnerController;
+use App\Http\Controllers\Admin\BlogCategoryController;
+
 
 Route::get('admin', [AuthController::class, 'login_admin']);
 Route::post('admin', [AuthController::class, 'auth_login_admin']);
@@ -61,6 +63,13 @@ Route::middleware(AdminMiddleware::class)->group(function () {
     Route::get('admin/sub_category/delete/{id}', [SubCategoryController::class, 'delete']);
 
     Route::post('admin/get_sub_category', [SubCategoryController::class, 'get_sub_category']);
+
+    Route::get('admin/blog_category/list', [BlogCategoryController::class, 'list']);
+    Route::get('admin/blog_category/add', [BlogCategoryController::class, 'add']);
+    Route::post('admin/blog_category/add', [BlogCategoryController::class, 'insert']);
+    Route::get('admin/blog_category/edit/{id}', [BlogCategoryController::class, 'edit']);
+    Route::post('admin/blog_category/edit/{id}', [BlogCategoryController::class, 'update']);
+    Route::get('admin/blog_category/delete/{id}', [BlogCategoryController::class, 'delete']);
 
     Route::get('admin/brand/list', [BrandController::class, 'list']);
     Route::get('admin/brand/add', [BrandController::class, 'add']);
@@ -158,8 +167,6 @@ Route::get('terms-condition', [HomeController::class, 'terms_condition']);
 Route::get('privacy-policy', [HomeController::class, 'privacy_policy']);
 
 Route::post('recent_arrival_category_product', [HomeController::class, 'recent_arrival_category_product']);
-
-
 
 Route::post('auth_register', [AuthController::class, 'auth_register']);
 Route::get('activate/{id}', [AuthController::class, 'activate_email']);
