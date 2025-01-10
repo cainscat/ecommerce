@@ -212,9 +212,36 @@ class HomeController extends Controller
         $data['meta_keywords'] = $getPage->meta_keywords;
 
         $data['getBlog'] = BlogModel::getBlog();
+        $data['getPopular'] = BlogModel::getPopular();
         $data['getBlogCategory'] = BlogCategoryModel::getRecordActive();
 
         return view('blog.list', $data);
+    }
+
+    public function blog_detail($slug)
+    {
+        $getBlog = BlogModel::getSingleSlug($slug);
+        if(!empty( $getBlog))
+        {
+            $total_view = $getBlog->total_view;
+            $getBlog->total_view = $total_view + 1;
+            $getBlog->save();
+
+            $data['getBlog'] = $getBlog;
+
+            $data['meta_title'] = $getBlog->meta_title;
+            $data['meta_description'] = $getBlog->meta_description;
+            $data['meta_keywords'] = $getBlog->meta_keywords;
+
+            $data['getBlogCategory'] = BlogCategoryModel::getRecordActive();
+            $data['getPopular'] = BlogModel::getPopular();
+            return view('blog.detail', $data);
+        }
+        else
+        {
+            abort(404);
+        }
+
     }
 
 }
