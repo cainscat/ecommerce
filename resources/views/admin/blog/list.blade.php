@@ -33,6 +33,7 @@
                                         <th>#</th>
                                         <th>Image</th>
                                         <th>Title</th>
+                                        <th>Short Description</th>
                                         <th>Description</th>
                                         <th>Meta Title</th>
                                         <th>Meta Description</th>
@@ -52,6 +53,7 @@
                                             @endif
                                         </td>
                                         <td>{{ $value->title }}</td>
+                                        <td>{{ $value->short_description }}</td>
                                         <td>{{ $value->description }}</td>
                                         <td>{{ $value->meta_title }}</td>
                                         <td>{{ $value->meta_description }}</td>

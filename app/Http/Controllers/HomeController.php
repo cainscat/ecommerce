@@ -235,6 +235,8 @@ class HomeController extends Controller
 
             $data['getBlogCategory'] = BlogCategoryModel::getRecordActive();
             $data['getPopular'] = BlogModel::getPopular();
+            $data['getRelatedPost'] = BlogModel::getRelatedPost($getBlog->blog_category_id, $getBlog->id);
+
             return view('blog.detail', $data);
         }
         else

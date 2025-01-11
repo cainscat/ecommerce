@@ -41,6 +41,17 @@
                                             <a href="{{ url('blog/'.$value->slug) }}">{{ $value->title }}</a>
                                         </h2>
 
+                                        @if(!empty($value->getCategory))
+                                            <div class="entry-cats">
+                                                in <a href="{{ url('blog/category/'.$value->getCategory->slug) }}">{{ $value->getCategory->name }}</a>
+                                            </div>
+                                        @endif
+
+                                        <div class="entry-content">
+                                            <p>{{ $value->short_description }}</p>
+                                            <a href="{{ url('blog/'.$value->slug) }}" class="read-more">Continue Reading</a>
+                                        </div>
+
                                     </div>
                                 </article>
                             </div>
