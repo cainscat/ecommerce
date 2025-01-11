@@ -10,6 +10,7 @@ use App\Models\ProductModel;
 use App\Models\CategoryModel;
 use App\Models\BlogModel;
 use App\Models\BlogCategoryModel;
+use App\Models\BlogCommentModel;
 
 use App\Mail\ContactUsMail;
 use Illuminate\Http\Request;
@@ -245,5 +246,17 @@ class HomeController extends Controller
         }
 
     }
+
+    public function submit_blog_comment(Request $request)
+    {
+        $comment = new BlogCommentModel;
+        $comment->user_id = Auth::user()->id;
+        $comment->blog_id = $request->blog_id;
+        $comment->comment = trim($request->comment);
+        $comment->save();
+
+        return redirect()->back()->with('success', "Comment successfully");
+    }
+
 
 }

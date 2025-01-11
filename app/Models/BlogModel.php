@@ -97,4 +97,20 @@ class BlogModel extends Model
         return $this->belongsTo(BlogCategoryModel::class, 'blog_category_id');
     }
 
+    public function getComment()
+    {
+        return $this->hasMany(BlogCommentModel::class, 'blog_id')
+                    ->select('blog_comment.*')
+                    ->join('users', 'users.id', '=', 'blog_comment.user_id')
+                    ->orderBy('blog_comment.id', 'desc');
+    }
+
+    public function getCommentCount()
+    {
+        return $this->hasMany(BlogCommentModel::class, 'blog_id')
+                    ->select('blog_comment.id')
+                    ->join('users', 'users.id', '=', 'blog_comment.user_id')
+                    ->count();
+    }
+
 }

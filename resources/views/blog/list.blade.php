@@ -34,7 +34,7 @@
                                         <div class="entry-meta">
                                             <a href="#">{{ date('M d, Y', strtotime($value->created_at)) }}</a>
                                             <span class="meta-separator">|</span>
-                                            <a href="#">0 Comments</a>
+                                            <a href="#">{{ $value->getCommentCount() }} Comments</a>
                                         </div>
 
                                         <h2 class="entry-title">
