@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\PageModel;
 use App\Models\SystemSettingModel;
+use App\Models\HomeSettingModel;
 use App\Models\ContactUsModel;
 use App\Models\SliderModel;
 use App\Models\PartnerModel;
@@ -25,6 +26,7 @@ class HomeController extends Controller
         $getPage = PageModel::getSlug('home');
         $data['getPage'] = $getPage;
 
+        $data['getHomeSetting'] = HomeSettingModel::getSingle();
         $data['getBlog'] = BlogModel::getRecordActiveHome();
         $data['getSlider'] = SliderModel::getRecordActive();
         $data['getPartner'] = PartnerModel::getRecordActive();
