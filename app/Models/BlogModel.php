@@ -39,17 +39,31 @@ class BlogModel extends Model
                 ->get();
     }
 
-    static public function getBlog()
+    static public function getRecordActiveHome()
+    {
+        return self::select('blog.*')
+                ->where('blog.is_delete', '=', 0)
+                ->where('blog.status', '=', 0)
+                ->limit(3)
+                ->orderBy('blog.id', 'asc')
+                ->get();
+    }
+
+    static public function getBlog($blog_category_id = '')
     {
         $return = self::select('blog.*');
         if(!empty(Request::get('search')))
         {
             $return = $return->where('blog.title', 'like', '%'.Request::get('search').'%');
         }
+        if(!empty($blog_category_id))
+        {
+            $return = $return->where('blog.blog_category_id', '=', $blog_category_id);
+        }
         $return = $return->where('blog.is_delete', '=', 0)
                 ->where('blog.status', '=', 0)
                 ->orderBy('blog.id', 'desc')
-                ->paginate(20);
+                ->paginate(10);
 
         return $return;
     }

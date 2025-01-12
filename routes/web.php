@@ -167,6 +167,7 @@ Route::get('contact', [HomeController::class, 'contact']);
 Route::post('contact', [HomeController::class, 'submit_contact']);
 Route::get('about', [HomeController::class, 'about']);
 Route::get('blog', [HomeController::class, 'blog']);
+Route::get('blog/category/{slug}', [HomeController::class, 'blog_category']);
 Route::get('blog/{slug}', [HomeController::class, 'blog_detail']);
 
 Route::get('faq', [HomeController::class, 'faq']);

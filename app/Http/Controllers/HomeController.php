@@ -25,6 +25,7 @@ class HomeController extends Controller
         $getPage = PageModel::getSlug('home');
         $data['getPage'] = $getPage;
 
+        $data['getBlog'] = BlogModel::getRecordActiveHome();
         $data['getSlider'] = SliderModel::getRecordActive();
         $data['getPartner'] = PartnerModel::getRecordActive();
         $data['getCategory'] = CategoryModel::getRecordActiveHome();
@@ -222,7 +223,7 @@ class HomeController extends Controller
     public function blog_detail($slug)
     {
         $getBlog = BlogModel::getSingleSlug($slug);
-        if(!empty( $getBlog))
+        if(!empty($getBlog))
         {
             $total_view = $getBlog->total_view;
             $getBlog->total_view = $total_view + 1;
@@ -239,6 +240,30 @@ class HomeController extends Controller
             $data['getRelatedPost'] = BlogModel::getRelatedPost($getBlog->blog_category_id, $getBlog->id);
 
             return view('blog.detail', $data);
+        }
+        else
+        {
+            abort(404);
+        }
+
+    }
+
+    public function blog_category($slug)
+    {
+        $getCategory = BlogCategoryModel::getSingleSlug($slug);
+        if(!empty($getCategory))
+        {
+            $data['getCategory'] = $getCategory;
+
+            $data['meta_title'] = $getCategory->meta_title;
+            $data['meta_description'] = $getCategory->meta_description;
+            $data['meta_keywords'] = $getCategory->meta_keywords;
+
+            $data['getBlogCategory'] = BlogCategoryModel::getRecordActive();
+            $data['getPopular'] = BlogModel::getPopular();
+            $data['getBlog'] = BlogModel::getBlog($getCategory->id);
+
+            return view('blog.category', $data);
         }
         else
         {
