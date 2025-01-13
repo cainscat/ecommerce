@@ -39,6 +39,7 @@
                                         <th>Meta Keywords</th>
                                         <th>Created By</th>
                                         <th>Home</th>
+                                        <th>Menu</th>
                                         <th>Status</th>
                                         <th>Created Date</th>
                                         <th>Action</th>
@@ -60,6 +61,7 @@
                                         <td>{{ $value->meta_keywords }}</td>
                                         <td>{{ $value->created_by_name }}</td>
                                         <td>{{ ($value->is_home == 1) ? 'Yes' : 'No' }}</td>
+                                        <td>{{ ($value->is_menu == 1) ? 'Yes' : 'No' }}</td>
                                         <td>{{ ($value->status == 0) ? 'Active' : 'InActive' }}</td>
                                         <td>{{ date('d-m-Y', strtotime($value->created_at)) }}</td>
                                         <td>
