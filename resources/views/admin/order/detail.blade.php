@@ -30,6 +30,10 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <label><span style="font-weight: bold;">Order Number :</span> {{ $getRecord->order_number }}</label>
+                                </div>
+
+                                <div class="form-group">
                                     <label><span style="font-weight: bold;">Transaction ID :</span> {{ $getRecord->transaction_id }}</label>
                                 </div>
 

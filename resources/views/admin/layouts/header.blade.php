@@ -18,9 +18,9 @@
                 </div>
             </li>
         </ul>
-    </div> <!--end::Container-->
-</nav> <!--end::Header--> <!--begin::Sidebar-->
-<aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark"> <!--begin::Sidebar Brand-->
+    </div>
+</nav>
+<aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
     <div class="sidebar-brand">
         <div class="brand-link">
             <span class="brand-text fw-light" style="margin-left: 0px;">

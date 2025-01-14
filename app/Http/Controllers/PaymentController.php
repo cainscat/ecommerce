@@ -10,6 +10,7 @@ use App\Models\ShippingChargeModel;
 use App\Models\OrderModel;
 use App\Models\OrderItemModel;
 use App\Models\ColorModel;
+use App\Models\NotificationModel;
 use App\Models\User;
 use Stripe\Stripe;
 use App\Mail\OrderInvoiceMail;
@@ -267,6 +268,15 @@ class PaymentController extends Controller
                 {
                     $getOrder->is_payment = 1;
                     $getOrder->save();
+
+                    Mail::to($getOrder->email)->send(new OrderInvoiceMail($getOrder));
+
+                    //Notification
+                    $user_id = $getOrder->user_id;
+                    $url = url('admin/orders/detail/'.$getOrder->id);
+                    $message = "New Order Placed #".$getOrder->order_number;
+                    NotificationModel::insertRecord($user_id, $url, $message);
+
                     Cart::clear();
                     return redirect('cart')->with('success', "Order successfully placed");
                 }
@@ -349,6 +359,12 @@ class PaymentController extends Controller
 
                 Mail::to($getOrder->email)->send(new OrderInvoiceMail($getOrder));
 
+                //Notification
+                $user_id = $getOrder->user_id;
+                $url = url('admin/orders/detail/'.$getOrder->id);
+                $message = "New Order Placed #".$getOrder->order_number;
+                NotificationModel::insertRecord($user_id, $url, $message);
+
                 Cart::clear();
                 return redirect('cart')->with('success', "Order successfully placed");
             }
@@ -378,6 +394,13 @@ class PaymentController extends Controller
             $getOrder->payment_data = json_encode($getdata);
             $getOrder->save();
             Mail::to($getOrder->email)->send(new OrderInvoiceMail($getOrder));
+
+            //Notification
+            $user_id = $getOrder->user_id;
+            $url = url('admin/orders/detail/'.$getOrder->id);
+            $message = "New Order Placed #".$getOrder->order_number;
+            NotificationModel::insertRecord($user_id, $url, $message);
+
             Cart::clear();
             return redirect('cart')->with('success', "Order successfully placed");
         }
