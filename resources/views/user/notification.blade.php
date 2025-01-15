@@ -1,47 +1,33 @@
-@extends('admin.layouts.app')
-    @section('style')
-    @endsection
+@extends('layouts.app')
+@section('style')
+@endsection
+
 @section('content')
-<main class="app-main">
-    <div class="app-content-header">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-6">
-                    <h3 class="mb-0">Contact Us</h3>
-                </div>
-                <div class="col-sm-6" style="text-align: right;">
-                </div>
-            </div>
+<main class="main">
+    <div class="page-header text-center">
+        <div class="container">
+            <h1 class="page-title">Notifications</h1>
         </div>
     </div>
-    <div class="app-content">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-
-                    @include('admin.layouts._message')
-
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <h3 class="card-title">Notifications</h3>
-                        </div>
-                        <div class="card-body p-0">
+    <div class="page-content">
+        <div class="dashboard">
+            <div class="container">
+                <br/>
+                <div class="row">
+                    @include('user._sidebar')
+                    <div class="col-md-8 col-lg-9">
+                        <div class="tab-content">
                             <table class="table">
-                                <thead>
-
-                                </thead>
                                 <tbody>
                                     @foreach ($getRecord as $value)
                                     <tr class="align-middle">
-                                        <td>
-                                            <a style="text-decoration: none; {{ empty($value->is_read) ? 'color: red;font-weight:bold;' : '' }}" href="{{ $value->url }}?noti_id={{ $value->id }}">
+                                        <td style="padding: 10px;">
+                                            <a style="{{ empty($value->is_read) ? 'color: red; font-weight:bold;' : 'color: #111fe3;' }}" href="{{ $value->url }}?noti_id={{ $value->id }}">
                                                 {{ $value->message }}
                                             </a>
-
                                             <div>
                                                 <small>{{ date('d-m-Y h:i A', strtotime($value->created_at)) }}</small>
                                             </div>
-
                                         </td>
                                     </tr>
                                     @endforeach
@@ -51,7 +37,6 @@
                             <div style="padding: 10px; float: right;">
                                 {!! $getRecord->appends(Illuminate\Support\Facades\Request::except('page'))->links() !!}
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -62,5 +47,4 @@
 @endsection
 
 @section('script')
-
 @endsection

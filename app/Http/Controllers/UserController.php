@@ -6,6 +6,7 @@ use App\Models\OrderModel;
 use App\Models\User;
 use App\Models\ProductWishlistModel;
 use App\Models\ProductReviewModel;
+use App\Models\NotificationModel;
 use Auth;
 use Hash;
 
@@ -13,7 +14,7 @@ class UserController extends Controller
 {
     public function dashboard()
     {
-        $data['meta_title'] = 'Dashboard';
+        $data['meta_title'] = 'User Dashboard';
         $data['meta_description'] = '';
         $data['meta_keywords'] = '';
 
@@ -32,8 +33,13 @@ class UserController extends Controller
         return view('user.dashboard', $data);
     }
 
-    public function orders()
+    public function orders(Request $request)
     {
+        if(!empty($request->noti_id))
+        {
+            NotificationModel::updateReadNoti($request->noti_id);
+        }
+
         $data['getRecord'] = OrderModel::getRecordUser(Auth::user()->id);
         $data['meta_title'] = 'Orders';
         $data['meta_description'] = '';
@@ -84,6 +90,15 @@ class UserController extends Controller
         $user->save();
 
         return redirect()->back()->with('success', "Profile successfully updated");
+    }
+
+    public function notification(Request $request)
+    {
+        $data['meta_title'] = 'Notifications';
+        $data['meta_description'] = '';
+        $data['meta_keywords'] = '';
+        $data['getRecord'] = NotificationModel::getRecordUser(Auth::user()->id);
+        return view('user.notification', $data);
     }
 
     public function change_password()

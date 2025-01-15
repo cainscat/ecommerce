@@ -162,6 +162,8 @@ Route::middleware(UserMiddleware::class)->group(function () {
     Route::get('my-wishlist', [ProductFront::class, 'my_wishlist']);
     Route::post('user/make-review', [UserController::class, 'submit_review']);
 
+    Route::get('user/notification', [UserController::class, 'notification']);
+
     Route::post('blog/submit_comment', [HomeController::class, 'submit_blog_comment']);
 
 });
