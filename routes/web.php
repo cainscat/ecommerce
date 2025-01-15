@@ -141,6 +141,9 @@ Route::middleware(AdminMiddleware::class)->group(function () {
     Route::get('admin/home-setting', [PageController::class, 'home_setting']);
     Route::post('admin/home-setting', [PageController::class, 'update_home_setting']);
 
+    Route::get('admin/smtp-setting', [PageController::class, 'smtp_setting']);
+    Route::post('admin/smtp-setting', [PageController::class, 'update_smtp_setting']);
+
     Route::get('admin/contact_us', [PageController::class, 'contact_us']);
     Route::get('admin/contact_us/delete/{id}', [PageController::class, 'contact_us_delete']);
 
