@@ -272,7 +272,7 @@ class PaymentController extends Controller
                     Mail::to($getOrder->email)->send(new OrderInvoiceMail($getOrder));
 
                     //Notification
-                    $user_id = $getOrder->user_id;
+                    $user_id = 1;
                     $url = url('admin/orders/detail/'.$getOrder->id);
                     $message = "New Order Placed #".$getOrder->order_number;
                     NotificationModel::insertRecord($user_id, $url, $message);
@@ -360,7 +360,7 @@ class PaymentController extends Controller
                 Mail::to($getOrder->email)->send(new OrderInvoiceMail($getOrder));
 
                 //Notification
-                $user_id = $getOrder->user_id;
+                $user_id = 1;
                 $url = url('admin/orders/detail/'.$getOrder->id);
                 $message = "New Order Placed #".$getOrder->order_number;
                 NotificationModel::insertRecord($user_id, $url, $message);
@@ -396,7 +396,7 @@ class PaymentController extends Controller
             Mail::to($getOrder->email)->send(new OrderInvoiceMail($getOrder));
 
             //Notification
-            $user_id = $getOrder->user_id;
+            $user_id = 1;
             $url = url('admin/orders/detail/'.$getOrder->id);
             $message = "New Order Placed #".$getOrder->order_number;
             NotificationModel::insertRecord($user_id, $url, $message);

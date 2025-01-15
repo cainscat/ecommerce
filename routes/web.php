@@ -144,6 +144,8 @@ Route::middleware(AdminMiddleware::class)->group(function () {
     Route::get('admin/contact_us', [PageController::class, 'contact_us']);
     Route::get('admin/contact_us/delete/{id}', [PageController::class, 'contact_us_delete']);
 
+    Route::get('admin/notification', [PageController::class, 'notification']);
+
 });
 
 

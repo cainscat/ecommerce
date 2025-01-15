@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Hash;
 use App\Models\User;
+use App\Models\NotificationModel;
 
 class AdminController extends Controller
 {
@@ -77,8 +78,13 @@ class AdminController extends Controller
         return redirect()->back()->with('success', "Record Successfully Deleted");
     }
 
-    public function customer_list()
+    public function customer_list(Request $request)
     {
+        if(!empty($request->noti_id))
+        {
+            NotificationModel::updateReadNoti($request->noti_id);
+        }
+
         $data['getRecord'] = User::getCustomer();
         $data['header_title'] = "Customer";
         return view('admin.customer.list', $data);

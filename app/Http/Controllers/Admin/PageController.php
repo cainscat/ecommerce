@@ -8,6 +8,7 @@ use App\Models\PageModel;
 use App\Models\ContactUsModel;
 use App\Models\SystemSettingModel;
 use App\Models\HomeSettingModel;
+use App\Models\NotificationModel;
 use Str;
 
 class PageController extends Controller
@@ -204,6 +205,13 @@ class PageController extends Controller
         ContactUsModel::where('id', '=', $id)->delete();
 
         return redirect()->back()->with('success', "Contact Us successfully deleted");
+    }
+
+    public function notification()
+    {
+        $data['getRecord'] = NotificationModel::getRecord();
+        $data['header_title'] = "Notifications";
+        return view('admin.notification.list', $data);
     }
 
 }
