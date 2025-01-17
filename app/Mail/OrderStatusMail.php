@@ -8,18 +8,21 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use App\Models\SystemSettingModel;
 
 class OrderStatusMail extends Mailable
 {
     use Queueable, SerializesModels;
 
     public $order;
+    public $setting;
     /**
      * Create a new message instance.
      */
     public function __construct($order)
     {
         $this->order = $order;
+        $this->setting = SystemSettingModel::getSingle();
     }
 
     /**
@@ -28,7 +31,7 @@ class OrderStatusMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'E-commerce Order Status',
+            subject: $this->setting->website_name.' Order Status',
         );
     }
 

@@ -57,7 +57,12 @@ class AuthController extends Controller
             else
             {
                 $save = User::getSingle(Auth::user()->id);
-                Mail::to($save->email)->send(new RegisterMail($save));
+
+                try{
+                    Mail::to($save->email)->send(new RegisterMail($save));
+                } catch(\Exception $e) {
+
+                }
                 Auth::logout();
 
                 $json['status'] = false;
@@ -84,7 +89,11 @@ class AuthController extends Controller
             $save->password = Hash::make($request->password);
             $save->save();
 
-            Mail::to($save->email)->send(new RegisterMail($save));
+            try{
+                Mail::to($save->email)->send(new RegisterMail($save));
+            } catch(\Exception $e) {
+
+            }
 
             //Notification
             $user_id = 1;
@@ -128,7 +137,11 @@ class AuthController extends Controller
             $user->remember_token = Str::random(30);
             $user->save();
 
-            Mail::to($user->email)->send(new ForgotPasswordMail($user));
+            try{
+                Mail::to($user->email)->send(new ForgotPasswordMail($user));
+            } catch(\Exception $e) {
+
+            }
 
             return redirect()->back()->with('success', "Please check your email and reset your password");
         }

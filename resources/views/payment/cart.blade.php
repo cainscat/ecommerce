@@ -62,9 +62,33 @@
                                                             </figure>
 
                                                             <h3 class="product-title">
-                                                                <a href="{{ url($getCartProduct->slug) }}">
+                                                                <a style="margin-bottom: 5px; display:block;" href="{{ url($getCartProduct->slug) }}">
                                                                     {{ $getCartProduct->title }}
                                                                 </a>
+
+                                                                @php
+                                                                    $color_id = $cart->attributes->color_id;
+                                                                @endphp
+                                                                @if(!empty($color_id))
+                                                                    @php
+                                                                        $getColor = App\Models\ColorModel::getSingle($color_id);
+                                                                    @endphp
+                                                                    <div>
+                                                                        <small><b>Color:</b> {{ $getColor->name }}</small>
+                                                                    </div>
+                                                                @endif
+
+                                                                @php
+                                                                    $size_id = $cart->attributes->size_id;
+                                                                @endphp
+                                                                @if(!empty($size_id))
+                                                                    @php
+                                                                        $getSize = App\Models\ProductSizeModel::getSingle($size_id);
+                                                                    @endphp
+                                                                    <div>
+                                                                        <small><b>Size:</b>{{ $getSize->name }} (${{ number_format($getSize->price)}})</small>
+                                                                    </div>
+                                                                @endif
                                                             </h3>
                                                         </div>
                                                     </td>

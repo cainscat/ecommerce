@@ -11,8 +11,11 @@ Hello {{ $user->name }},
 </p>
 
 <p>In case your have any issues recovering your password, please contact us.</p>
+@php
+    $getSetting = App\Models\SystemSettingModel::getSingle();
+@endphp
 
 Thanks,<br>
-{{ config('app.name') }}
+{{ $getSetting->website_name }}
 
 @endcomponent

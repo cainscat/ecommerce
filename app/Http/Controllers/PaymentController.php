@@ -108,7 +108,7 @@ class PaymentController extends Controller
             )
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with('success', "Iteam successfully added to your cart!");
     }
 
     public function update_cart(Request $request)
@@ -269,8 +269,11 @@ class PaymentController extends Controller
                     $getOrder->is_payment = 1;
                     $getOrder->save();
 
-                    Mail::to($getOrder->email)->send(new OrderInvoiceMail($getOrder));
+                    try{
+                        Mail::to($getOrder->email)->send(new OrderInvoiceMail($getOrder));
+                    } catch(\Exception $e) {
 
+                    }
                     //Notification
                     $user_id = 1;
                     $url = url('admin/orders/detail/'.$getOrder->id);
@@ -357,7 +360,11 @@ class PaymentController extends Controller
                 $getOrder->payment_data = json_encode($request->all());
                 $getOrder->save();
 
-                Mail::to($getOrder->email)->send(new OrderInvoiceMail($getOrder));
+                try{
+                    Mail::to($getOrder->email)->send(new OrderInvoiceMail($getOrder));
+                } catch(\Exception $e) {
+
+                }
 
                 //Notification
                 $user_id = 1;
@@ -393,7 +400,12 @@ class PaymentController extends Controller
             $getOrder->transaction_id = $getdata->id;
             $getOrder->payment_data = json_encode($getdata);
             $getOrder->save();
-            Mail::to($getOrder->email)->send(new OrderInvoiceMail($getOrder));
+
+            try{
+                Mail::to($getOrder->email)->send(new OrderInvoiceMail($getOrder));
+            } catch(\Exception $e) {
+
+            }
 
             //Notification
             $user_id = 1;

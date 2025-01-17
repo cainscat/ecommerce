@@ -55,10 +55,13 @@
             <h2>Order Invoice</h2>
         </div>
         <div class="invoice-details">
+            @php
+                $getSetting = App\Models\SystemSettingModel::getSingle();
+            @endphp
             <p><strong>Order Number:</strong> {{ $order->order_number }}</p>
             <p><strong>Date of Purchase:</strong> {{ date('d-m-Y', strtotime($order->created_at)) }}</p>
             <p><strong>Dear:</strong> {{ $order->first_name }}</p>
-            <p>Thank you for your purchase!</p>
+            <p>Thank you for your purchase with <strong>{{ $getSetting->website_name }}</strong>. We are pleased to confirm your order!</p>
         </div>
         <table class="invoice-table">
             <thead>

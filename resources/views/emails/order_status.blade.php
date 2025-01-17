@@ -69,9 +69,12 @@
                     <strong>Cancelled</strong>
                 @endif
             </p>
+            @php
+                $getSetting = App\Models\SystemSettingModel::getSingle();
+            @endphp
             <p>Order Number: {{ $order->order_number }}</p>
             <p>Date of Purchase: {{ date('d-m-Y', strtotime($order->created_at)) }}</p>
-            <p>Thank you for your purchase!</p>
+            <p>Thank you for your purchase with <strong>{{ $getSetting->website_name }}</strong></p>
         </div>
         <table class="invoice-table">
             <thead>
