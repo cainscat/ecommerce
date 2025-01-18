@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\PageModel;
 use App\Models\ContactUsModel;
 use App\Models\SystemSettingModel;
+use App\Models\PaymentSettingModel;
 use App\Models\HomeSettingModel;
 use App\Models\NotificationModel;
 use App\Models\SMTPModel;
@@ -125,6 +126,29 @@ class PageController extends Controller
 
         return redirect()->back()->with('success', "Setting Successfully Updated");
     }
+
+    public function payment_setting()
+    {
+        $data['getRecord'] = PaymentSettingModel::getSingle();
+        $data['header_title'] = "Payment Setting";
+        return view('admin.setting.payment_setting', $data);
+    }
+
+    public function update_payment_setting(Request $request)
+    {
+        $save = PaymentSettingModel::getSingle();
+        $save->paypal_id = trim($request->paypal_id);
+        $save->paypal_status = trim($request->paypal_status);
+        $save->stripe_public_key = trim($request->stripe_public_key);
+        $save->stripe_secret_key = trim($request->stripe_secret_key);
+        $save->is_paypal = !empty($request->is_paypal) ? 1 : 0;
+        $save->is_stripe = !empty($request->is_stripe) ? 1 : 0;
+        $save->is_cash_delivery = !empty($request->is_cash_delivery) ? 1 : 0;
+        $save->save();
+
+        return redirect()->back()->with('success', "Payment Setting Successfully Updated");
+    }
+
 
     public function home_setting()
     {
