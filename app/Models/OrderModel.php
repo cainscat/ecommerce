@@ -134,7 +134,7 @@ class OrderModel extends Model
                 ->where('is_payment', '=', 1)
                 ->where('is_delete', '=', 0)
                 ->whereDate('created_at', '>=', $start_date)
-                ->whereDate('created_at', '<=', $end_date)
+                ->whereDate('updated_at', '<=', $end_date)
                 ->count();
     }
 
@@ -144,7 +144,7 @@ class OrderModel extends Model
                 ->where('is_payment', '=', 1)
                 ->where('is_delete', '=', 0)
                 ->whereDate('created_at', '>=', $start_date)
-                ->whereDate('created_at', '<=', $end_date)
+                ->whereDate('updated_at', '<=', $end_date)
                 ->sum('total_amount');
     }
 

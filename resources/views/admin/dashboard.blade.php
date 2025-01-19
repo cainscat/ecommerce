@@ -189,16 +189,23 @@
     const sales_chart_options = {
         series: [{
                 name: "Customer",
-                data: [{{ ($getTotalCustomerMonth)}}],
+                data: [
+                    {{ ($getTotalCustomerMonth)}}
+                ],
             },
             {
                 name: "Order",
-                data: [{{ $getTotalOrderMonth }}],
+                data: [
+                    {{ $getTotalOrderMonth }}
+                ],
             },
             {
                 name: "Amount",
-                data: [{{ $getTotalOrderAmountMonth }}],
+                data: [
+                    {{ $getTotalOrderAmountMonth }}
+                ],
             },
+
         ],
         chart: {
             type: "bar",
