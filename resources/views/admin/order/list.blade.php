@@ -34,12 +34,12 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-2">
+                                    {{-- <div class="col-md-2">
                                         <div class="form-group">
                                             <label for="">Company Name</label>
                                             <input type="text" name="company_name" class="form-control" value="{{ Request::get('company_name') }}" placeholder="Company Name">
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                     <div class="col-md-2">
                                         <div class="form-group">
@@ -48,12 +48,12 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-2">
+                                    {{-- <div class="col-md-2">
                                         <div class="form-group">
                                             <label for="">Last Name</label>
                                             <input type="text" name="last_name" class="form-control" value="{{ Request::get('last_name') }}" placeholder="Last Name">
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                     <div class="col-md-2">
                                         <div class="form-group">
@@ -62,7 +62,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-2">
+                                    {{-- <div class="col-md-2">
                                         <div class="form-group">
                                             <label for="">Country</label>
                                             <input type="text" name="country" class="form-control" value="{{ Request::get('country') }}" placeholder="Country">
@@ -74,14 +74,14 @@
                                             <label for="">State</label>
                                             <input type="text" name="state" class="form-control" value="{{ Request::get('state') }}" placeholder="State">
                                         </div>
-                                    </div>
+                                    </div> --}}
 
-                                    <div class="col-md-2">
+                                    {{-- <div class="col-md-2">
                                         <div class="form-group">
                                             <label for="">City</label>
                                             <input type="text" name="city" class="form-control" value="{{ Request::get('city') }}" placeholder="City">
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                     <div class="col-md-2">
                                         <div class="form-group">
@@ -90,12 +90,12 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-2">
+                                    {{-- <div class="col-md-2">
                                         <div class="form-group">
                                             <label for="">Postcode</label>
                                             <input type="text" name="postcode" class="form-control" value="{{ Request::get('postcode') }}" placeholder="Postcode">
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                     <div class="col-md-2">
                                         <div class="form-group">
@@ -138,18 +138,18 @@
                                         <th>#</th>
                                         <th>Order Number</th>
                                         <th>Name</th>
-                                        <th>Company Name</th>
+                                        {{-- <th>Company Name</th>
                                         <th>Country</th>
-                                        <th>Address</th>
+                                        <th>Address</th> --}}
                                         <th>City</th>
-                                        <th>State</th>
-                                        <th>Postcode</th>
+                                        {{-- <th>State</th>
+                                        <th>Postcode</th> --}}
                                         <th>Phone</th>
                                         <th>Email</th>
-                                        <th>Discount Code</th>
+                                        {{-- <th>Discount Code</th>
                                         <th>Discount Amount ($)</th>
-                                        <th>Shipping Amount ($)</th>
-                                        <th>Total Amount ($)</th>
+                                        <th>Shipping Amount ($)</th> --}}
+                                        <th>Total ($)</th>
                                         <th>Payment Method</th>
                                         <th>Status</th>
                                         <th>Created Date</th>
@@ -162,17 +162,17 @@
                                         <td>{{ $value->id }}</td>
                                         <td>{{ $value->order_number }}</td>
                                         <td>{{ $value->first_name }} {{ $value->last_name }}</td>
-                                        <td>{{ $value->company_name }}</td>
+                                        {{-- <td>{{ $value->company_name }}</td>
                                         <td>{{ $value->country }}</td>
-                                        <td>{{ $value->address_one }}, {{ $value->address_two }}</td>
+                                        <td>{{ $value->address_one }}, {{ $value->address_two }}</td> --}}
                                         <td>{{ $value->city }}</td>
-                                        <td>{{ $value->state }}</td>
-                                        <td>{{ $value->postcode }}</td>
+                                        {{-- <td>{{ $value->state }}</td>
+                                        <td>{{ $value->postcode }}</td> --}}
                                         <td>{{ $value->phone }}</td>
                                         <td>{{ $value->email }}</td>
-                                        <td>{{ $value->discount_code }}</td>
+                                        {{-- <td>{{ $value->discount_code }}</td>
                                         <td>{{ number_format($value->discount_amount) }}</td>
-                                        <td>{{ number_format($value->shipping_amount) }}</td>
+                                        <td>{{ number_format($value->shipping_amount) }}</td> --}}
                                         <td>{{ number_format($value->total_amount) }}</td>
                                         <td style="text-transform: capitalize;">{{ $value->payment_method }}</td>
                                         <td>
