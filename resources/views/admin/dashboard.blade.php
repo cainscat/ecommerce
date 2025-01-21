@@ -99,7 +99,8 @@
                                     <span>Sales Over Time</span> </p>
                             </div>
                             <div class="position-relative mb-4">
-                                <div id="sales-chart-order"></div>
+                                {{-- <div id="sales-chart-order"></div> --}}
+                                <canvas id="sales-chart-order"></canvas>
                             </div>
                             <div class="d-flex flex-row justify-content-end">
                                 <span class="me-2">
@@ -180,7 +181,7 @@
 
 @section('script')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script>
+{{-- <script>
     $('.ChangeYear').change(function(){
         var year = $(this).val();
         window.location.href = "{{ url('admin/dashboard?year=') }}"+year;
@@ -263,6 +264,58 @@
         sales_chart_options
     );
     sales_chart.render();
-</script>
+</script> --}}
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    $('.ChangeYear').change(function(){
+        var year = $(this).val();
+        window.location.href = "{{ url('admin/dashboard?year=') }}"+year;
+    });
+
+    const ctx = document.getElementById('sales-chart-order');
+
+    new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: [
+                'January',
+                'February',
+                'March',
+                'April',
+                'May',
+                'June',
+                'July',
+                'August',
+                'September',
+                'October',
+                'November',
+                'December',
+            ],
+        datasets: [{
+        label: 'Customers',
+        data: [{{ ($getTotalCustomerMonth)}}],
+        borderWidth: 1
+        },
+        {
+        label: 'Orders',
+        data: [{{ $getTotalOrderMonth }}],
+        borderWidth: 1
+        },
+        {
+        label: 'TotalOrderAmount',
+        data: [{{ $getTotalOrderAmountMonth }}],
+        borderWidth: 1
+        }
+    ]
+    },
+    options: {
+        scales: {
+        y: {
+            beginAtZero: true
+        }
+        }
+    }
+    });
+</script>
 @endsection
