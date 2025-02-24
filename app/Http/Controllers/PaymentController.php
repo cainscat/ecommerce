@@ -320,7 +320,7 @@ class PaymentController extends Controller
                     $finalprice = $getOrder->total_amount * 100;
 
                     $session = \Stripe\Checkout\Session::create([
-                        'customer_email' => $getOrder->eamil,
+                        'customer_email' => $getOrder->email,
                         'payment_method_types' => ['card'],
                         'line_items' => [[
                             'price_data' => [
